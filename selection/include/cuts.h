@@ -288,33 +288,80 @@ namespace cuts
     REGISTER_CUT_SCOPE(RegistrationScope::Both, flash_cut, flash_cut);
 
     /**
-     * @brief Base particle multiplicity for a specific multiplicity.
-     * @details This function calculates the multiplicity of a specific
-     * particle species in an interaction. The particle species is specified by
-     * its SPINE PID index. The function counts the number of primary particles
-     * of the specified species with a kinetic energy above a given threshold.
-     * @tparam obj the interaction to select on.
-     * @param mult the desired multiplicity for the specified particle species.
+     * @brief Base particle multiplicity cut for N particles.
+     * @details This function applies a cut to select interactions with a
+     * multiplicity of N for a specific particle type. The particle type is
+     * specified by the `particle_species` parameter, which corresponds to the
+     * index in the @ref utilities::count_primaries function.
+     * @param obj the interaction to select on.
      * @param particle_species the index of the particle species to count.
+     * @param N how many particles of the target species are desired
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for the particle to count towards the
-     * multiplicity. The first element of the vector is used for this purpose.
-     * @return the multiplicity of the specified particle species terminated at
-     * some maximum value (the desired multiplicity + 1).
+     * multiplicity.
+     * @return true if the interaction has a multiplicity of N for the specified
+     * particle species.
      */
     template<class T>
-    size_t particle_multiplicity(const T & obj, size_t mult, size_t particle_species, std::vector<double> params={})
+    bool N_particle_multiplicity(const T & obj, size_t particle_species, size_t N, std::vector<double> params={})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
         {
             if(pvars::pid(p) == particle_species && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
                 ++count;
-            if(count > mult)
-                break; // No need to count further.
+            if(count > N)
+                break; // No need to count further, we only care about multiplicity of N.
         }
-        return count;
+        return count == N;
     }
+
+    /**
+     * @brief Base particle multiplicity cut for a single particle.
+     * @details This function applies a cut to select interactions with a
+     * multiplicity of 1 for a specific particle type. The particle type is
+     * specified by the `particle_species` parameter, which corresponds to the
+     * index in the @ref utilities::count_primaries function.
+     * @param obj the interaction to select on.
+     * @param particle_species the index of the particle species to count.
+     * @param N how many particles of the target species are desired
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for the particle to count towards the
+     * multiplicity.
+     * @return true if the interaction has a multiplicity of 1 for the specified
+     * particle species.
+     */
+    template<class T>
+    bool single_particle_multiplicity(const T & obj, size_t particle_species, std::vector<double> params={})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == particle_species && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
+                ++count;
+            if(count > 1)
+                break; // No need to count further, we only care about multiplicity of 1.
+        }
+        return count == 1;
+    }
+
+    /**
+     * @brief Binding for a dual particle photon multiplicity cut.
+     * @details This function binds the N=2 particle multiplicity cut for
+     * photons, which corresponds to the index 0 in the
+     * @ref utilities::count_primaries function.
+     * @param obj the interaction to select on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a photon to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return true if the interaction has two primary photons.
+     */
+    template<class T>
+    bool dual_photon(const T & obj, std::vector<double> params={25.0,})
+    {
+        return N_particle_multiplicity(obj, pvars::kPhoton, 2, params);
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, dual_photon, dual_photon);
 
     /**
      * @brief Binding for a single particle photon multiplicity cut.
@@ -330,7 +377,7 @@ namespace cuts
     template<class T>
     bool single_photon(const T & obj, std::vector<double> params={25.0,})
     {
-        return particle_multiplicity(obj, 1, 0, params) == 1;
+        return single_particle_multiplicity(obj, pvars::kPhoton, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_photon, single_photon);
 
@@ -348,7 +395,7 @@ namespace cuts
     template<class T>
     bool single_electron(const T & obj, std::vector<double> params={25.0,})
     {
-        return particle_multiplicity(obj, 1, 1, params) == 1;
+        return single_particle_multiplicity(obj, pvars::kElectron, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_electron, single_electron);
 
@@ -367,7 +414,7 @@ namespace cuts
     template<class T>
     bool single_muon(const T & obj, std::vector<double> params={143.425,})
     {
-        return particle_multiplicity(obj, 1, 2, params) == 1;
+        return single_particle_multiplicity(obj, pvars::kMuon, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_muon, single_muon);
 
@@ -385,7 +432,7 @@ namespace cuts
     template<class T>
     bool single_pion(const T & obj, std::vector<double> params={25.0,})
     {
-        return particle_multiplicity(obj, 1, 3, params) == 1;
+        return single_particle_multiplicity(obj, pvars::kPion, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_pion, single_pion);
 
@@ -403,7 +450,7 @@ namespace cuts
     template<class T>
     bool single_proton(const T & obj, std::vector<double> params={50.0,})
     {
-        return particle_multiplicity(obj, 1, 4, params) == 1;
+        return single_particle_multiplicity(obj, pvars::kPhoton, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_proton, single_proton);
 
@@ -423,7 +470,7 @@ namespace cuts
     template<class T>
     bool no_photons(const T & obj, std::vector<double> params={25.0,})
     {
-        return particle_multiplicity(obj, 0, 0, params) == 0;
+        return !nonzero_particle_multiplicity(obj, pvars::kPhoton, params);
     }
 
     REGISTER_CUT_SCOPE(RegistrationScope::Both, no_photons, no_photons);
@@ -444,7 +491,7 @@ namespace cuts
     template<class T>
     bool no_electrons(const T & obj, std::vector<double> params={25.0,})
     {
-        return particle_multiplicity(obj, 0, 1, params) == 0;
+        return !nonzero_particle_multiplicity(obj, pvars::kElectron, params);
     }
 
     REGISTER_CUT_SCOPE(RegistrationScope::Both, no_electrons, no_electrons);
@@ -466,7 +513,7 @@ namespace cuts
     template<class T>
     bool no_muons(const T & obj, std::vector<double> params={143.425,})
     {
-        return particle_multiplicity(obj, 0, 2, params) == 0;
+        return !nonzero_particle_multiplicity(obj, pvars::kMuon, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, no_muons, no_muons);
 
@@ -486,7 +533,7 @@ namespace cuts
     template<class T>
     bool no_charged_pions(const T & obj, std::vector<double> params={25.0,})
     {
-        return particle_multiplicity(obj, 0, 3, params) == 0;
+        return !nonzero_particle_multiplicity(obj, pvars::kPion, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, no_charged_pions, no_charged_pions);
 
@@ -506,7 +553,7 @@ namespace cuts
     template<class T>
     bool no_protons(const T & obj, std::vector<double> params={50.0,})
     {
-        return particle_multiplicity(obj, 0, 4, params) == 0;
+        return !nonzero_particle_multiplicity(obj, pvars::kProton, params);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, no_protons, no_protons);
 
