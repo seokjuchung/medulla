@@ -303,12 +303,16 @@ namespace cuts
      * particle species.
      */
     template<class T>
+<<<<<<< HEAD
     bool N_particle_multiplicity(const T & obj, size_t particle_species, size_t N, std::vector<double> params={})
+=======
+    size_t particle_multiplicity(const T & obj, size_t mult, size_t particle_species, std::vector<double> params={0.0})
+>>>>>>> 7feaac9 (gOre updates)
     {
         size_t count(0);
         for(const auto & p : obj.particles)
         {
-            if(pvars::pid(p) == particle_species && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
+            if((pvars::pid(p) == particle_species) && pvars::primary_classification(p) && (pvars::ke(p) >= params.at(0)))
                 ++count;
             if(count > N)
                 break; // No need to count further, we only care about multiplicity of N.
