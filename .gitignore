@@ -1,4 +1,6 @@
+
 *.d
+*.db
 *.so
 *.pcm
 *.root
