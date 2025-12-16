@@ -1,5 +1,5 @@
 [general]
-output = "gOre_1g0p_1g1p"
+output = "/exp/sbnd/data/users/sc5303/NCDelta/gOre_1g0p_1g1p_single"
 fsthresh = [
   "@gOre_threshold",
   "@gOre_threshold",
@@ -103,131 +103,12 @@ cuts = [
   { name = "!neutrino" },
 ]
 
-[[sample]] # cv
-name = "cv"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/nominal/*.flat.root"
+[[sample]]
+name = "simulation"
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
 ismc = true
 disable = false
 
-[[sample]] # cvext
-name = "cvext"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/cvext/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var00
-name = "var00"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var00/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var01
-name = "var01"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var01/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var02
-name = "var02"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var00/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var03m
-name = "var03m"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var03m/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var03p
-name = "var03p"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var03p/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var04
-name = "var04"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var04/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var05
-name = "var05"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var05/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var06
-name = "var06"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var06/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var07
-name = "var07"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var07/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var08
-name = "var08"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var08/*.flat.root"
-ismc = true
-disable = true
-
-[[sample]] # var09m
-name = "var09m"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var09m/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var09p
-name = "var09p"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var09p/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var10m
-name = "var10m"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var10m/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var10p
-name = "var10p"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var10p/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var11
-name = "var11"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var11/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var12m
-name = "var12m"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var12m/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var12p
-name = "var12p"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var12p/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var13m
-name = "var13m"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var13m/*.flat.root"
-ismc = true
-disable = false
-
-[[sample]] # var13p
-name = "var13p"
-path = "/pnfs/icarus/persistent/users/mueller/production/simulation/var13p/*.flat.root"
-ismc = true
-disable = false
 
 [[tree]] # selection (1γ0p)
 name = "selected_1g0p"
