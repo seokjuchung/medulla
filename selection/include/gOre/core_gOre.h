@@ -34,12 +34,12 @@
  * Fiducial Thresholds in cm
  * Nominally 25 cm for X/Y walls, 50 cm from +Z and 30 cm from -Z
  **/
-#define GORE_FID_THRESH_X_POS 25
-#define GORE_FID_THRESH_X_NEG 25
-#define GORE_FID_THRESH_Y_POS 25
-#define GORE_FID_THRESH_Y_NEG 25
-#define GORE_FID_THRESH_Z_POS 50
-#define GORE_FID_THRESH_Z_NEG 30
+#define GORE_FID_THRESH_X_POS 25.0
+#define GORE_FID_THRESH_X_NEG 25.0
+#define GORE_FID_THRESH_Y_POS 25.0
+#define GORE_FID_THRESH_Y_NEG 25.0
+#define GORE_FID_THRESH_Z_POS 50.0
+#define GORE_FID_THRESH_Z_NEG 30.0
 
 #include <optional>
 
