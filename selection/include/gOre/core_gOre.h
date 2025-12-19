@@ -23,23 +23,23 @@
  * Wall Locations in cm
  * getting geom info from https://sbn-docdb.fnal.gov/cgi-bin/sso/RetrieveFile?docid=21693&filename=ICARUS_geometry_update_26Apr21_v3.pdf&version=3
  **/
-#define GORE_WALL_X_POS  358.49
-#define GORE_WALL_X_NEG -358.49
-#define GORE_WALL_Y_POS  134.96
-#define GORE_WALL_Y_NEG -181.89
-#define GORE_WALL_Z_POS  894.95
-#define GORE_WALL_Z_NEG -894.95
+#define GORE_WALL_X_POS  200
+#define GORE_WALL_X_NEG -200
+#define GORE_WALL_Y_POS  200
+#define GORE_WALL_Y_NEG -200
+#define GORE_WALL_Z_POS  500
+#define GORE_WALL_Z_NEG -0
 
 /**
  * Fiducial Thresholds in cm
  * Nominally 25 cm for X/Y walls, 50 cm from +Z and 30 cm from -Z
  **/
-#define GORE_FID_THRESH_X_POS 50.0
-#define GORE_FID_THRESH_X_NEG 50.0
-#define GORE_FID_THRESH_Y_POS 50.0
-#define GORE_FID_THRESH_Y_NEG 50.0
-#define GORE_FID_THRESH_Z_POS 50.0
-#define GORE_FID_THRESH_Z_NEG 50.0
+#define GORE_FID_THRESH_X_POS 25
+#define GORE_FID_THRESH_X_NEG 25
+#define GORE_FID_THRESH_Y_POS 25
+#define GORE_FID_THRESH_Y_NEG 25
+#define GORE_FID_THRESH_Z_POS 50
+#define GORE_FID_THRESH_Z_NEG 30
 
 #include <optional>
 

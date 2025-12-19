@@ -1,14 +1,3 @@
-[general]
-output = "/exp/sbnd/data/users/sc5303/NCDelta/gOre_1g0p_1g1p_single"
-fsthresh = [
-  "@gOre_threshold",
-  "@gOre_threshold",
-  "@muon_threshold",
-  "@pion_threshold",
-  "@proton_threshold",
-]
-pidfn = "gOre_pid"
-
 [parameters]
 gOre_threshold = 25 # MeV
 muon_threshold = 25 # MeV
@@ -16,16 +5,27 @@ pion_threshold = 25 # MeV
 proton_threshold = 50 # MeV
 flash_low_t =  0.0 # µs
 flash_high_t = 1.6 # µs
-fiducial_xdist_pos = 50 # cm
-fiducial_xdist_neg = 50 # cm
-fiducial_ydist_pos = 50 # cm
-fiducial_ydist_neg = 50 # cm
+fiducial_xdist_pos = 25 # cm
+fiducial_xdist_neg = 25 # cm
+fiducial_ydist_pos = 25 # cm
+fiducial_ydist_neg = 25 # cm
 fiducial_zdist_pos = 50 # cm
-fiducial_zdist_neg = 50 # cm
+fiducial_zdist_neg = 30 # cm
 pion_mass_threshold = 0.4 # fraction of π0 mass
 photon_vertex_resolution = 150 # cm
 flash_pe_neutron_scaling = 0.01
 angle_neutron_scaling = 1.0
+
+[general]
+output = "/exp/sbnd/data/users/sc5303/NCDelta/gOre_1g0p_1g1p_single"
+fsthresh = [
+  "@gOre_threshold",
+  "@muon_threshold",
+  "@pion_threshold",
+  "@proton_threshold",
+]
+pidfn = "gOre_pid"
+
 
 [[category]] # contained, fiducial, single photon
 cuts = [
@@ -307,7 +307,7 @@ cut = [
     { name = "no_muons",                    type = "true", parameters = [ "@muon_threshold" ]   },
     { name = "no_charged_pions",            type = "true", parameters = [ "@pion_threshold" ]   },
     { name = "no_protons",                  type = "true", parameters = [ "@proton_threshold" ] },
-    { name = "trigger_emulation_cut",       type = "event", decrements_exposure = false         },
+    # { name = "trigger_emulation_cut",       type = "event", decrements_exposure = false         },
     { name = "has_nc_delta_ng_interaction", type = "event", decrements_exposure = false         },
 ]
 branch = [
@@ -403,7 +403,7 @@ cut = [
     { name = "no_muons",                    type = "true", parameters = [ "@muon_threshold" ]   },
     { name = "no_charged_pions",            type = "true", parameters = [ "@pion_threshold" ]   },
     { name = "single_proton",               type = "true", parameters = [ "@proton_threshold" ] },
-    { name = "trigger_emulation_cut",       type = "event", decrements_exposure = false         },
+    # { name = "trigger_emulation_cut",       type = "event", decrements_exposure = false         },
     { name = "has_nc_delta_ng_interaction", type = "event", decrements_exposure = false         },
 ]
 branch = [
