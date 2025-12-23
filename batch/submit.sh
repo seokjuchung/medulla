@@ -52,7 +52,7 @@ fi
 #######################################################################
 
 # Setup CVMFS area
-source /cvmfs/icarus.opensciencegrid.org/products/icarus/setup_icarus.sh
+source /cvmfs/sbnd.opensciencegrid.org/products/sbnd/setup_sbnd.sh
 
 # Setup the required dependencies
 setup sbnana v10_01_02_01 -q e26:prof
@@ -61,9 +61,9 @@ setup cmake v3_27_4
 ups active
 
 # Build medulla
-git clone https://github.com/hausnerh/medulla.git
+git clone https://github.com/seokjuchung/medulla.git
 cd medulla
-git checkout feature/hausnerh_medulla_gOre
+git checkout feature/schung_NCDelta
 mkdir build && cd build
 export CC=$(which gcc)
 export CXX=$(which g++)
