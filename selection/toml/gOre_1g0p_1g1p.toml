@@ -485,4 +485,4 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_y",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
-] 
+]
