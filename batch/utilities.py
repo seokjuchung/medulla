@@ -400,7 +400,7 @@ def launch_jobsub(
     # printed to stdout by jobsub, so we just need to catch it and
     # print a more user-friendly message.
     try:
-        out = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        out = subprocess.run(cmd, check=True, capture_output=False, text=True)
     except subprocess.CalledProcessError as e:
         if 'ExpiredSignatureError' in (output := e.stderr.strip()):
             print("[ERROR] -- Job submission failed due to expired token. Please run `htgettoken` to refresh your token and try again.")
