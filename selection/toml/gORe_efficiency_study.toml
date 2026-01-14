@@ -133,7 +133,8 @@ cuts = [
 
 [[sample]]
 name = "simulation"
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root"
 ismc = true
 disable = false
 
@@ -173,11 +174,12 @@ branch = [
   { name = "muon_multiplicity",   type = "both", parameters = [ "@muon_threshold" ] },
   { name = "pion_multiplicity",   type = "both", parameters = [ "@pion_threshold" ] },
   { name = "proton_multiplicity",   type = "both", parameters = [ "@proton_threshold" ] },
+  { name = "iou",   type = "both"},
 ]
 
 [[tree]]
 name = "Total_true"
-sim_only = false
+sim_only = true
 add_systematics = true
 mode = "true"
 cut = [
@@ -210,6 +212,7 @@ branch = [
   { name = "muon_multiplicity",   type = "both", parameters = [ "@muon_threshold" ] },
   { name = "pion_multiplicity",   type = "both", parameters = [ "@pion_threshold" ] },
   { name = "proton_multiplicity",   type = "both", parameters = [ "@proton_threshold" ] },
+  { name = "iou",   type = "both"},
 ]
 
 [[tree]] # signal (NC ∆->Nγ) 1g0p
