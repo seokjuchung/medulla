@@ -785,8 +785,8 @@ branch = [
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
 ]
 
-[[tree]] # signal (NC ∆->Nγ) 1g1p
-name = "signal_1g1p"
+[[tree]] # signal (NC ∆->Nγ) 1gXp
+name = "signal_1gXp"
 sim_only = true
 mode = "true"
 add_systematics = true
