@@ -1,30 +1,19 @@
 [parameters]
-gOre_threshold = 25 # MeV
+gORe_threshold = 25 # MeV
 muon_threshold = 25 # MeV
 pion_threshold = 25 # MeV
 proton_threshold = 50 # MeV
-flash_low_t =  0.0 # µs
-flash_high_t = 1.6 # µs
-fiducial_xdist_pos = 25 # cm
-fiducial_xdist_neg = 25 # cm
-fiducial_ydist_pos = 25 # cm
-fiducial_ydist_neg = 25 # cm
-fiducial_zdist_pos = 50 # cm
-fiducial_zdist_neg = 30 # cm
-pion_mass_threshold = 0.4 # fraction of π0 mass
-photon_vertex_resolution = 150 # cm
-flash_pe_neutron_scaling = 0.01
-angle_neutron_scaling = 1.0
+
 
 [general]
 output = "/exp/sbnd/data/users/sc5303/NCDelta/gOre_1g0p_1g1p_single"
 fsthresh = [
-  "@gOre_threshold",
+  "@gORe_threshold",
   "@muon_threshold",
   "@pion_threshold",
   "@proton_threshold",
 ]
-pidfn = "gOre_pid"
+pidfn = "default_pid"
 
 
 [[category]] # Topo 1g0p
@@ -32,8 +21,8 @@ cuts = [
   { name = "neutrino"                                                 },
   { name = "containment_cut"                                          },
   { name = "fiducial_cut"                                             },
-  { name = "single_photon",       parameters = [ "@gOre_threshold" ]  },
-  { name = "no_electrons",        parameters = [ "@gOre_threshold" ]  },
+  { name = "single_photon",       parameters = [ "@gORe_threshold" ]  },
+  { name = "no_electrons",        parameters = [ "@gORe_threshold" ]  },
   { name = "no_muons",            parameters = [ "@muon_threshold" ]  },
   { name = "no_charged_pions",    parameters = [ "@pion_threshold" ]  },
   { name = "no_protons",          parameters = [ "@proton_threshold" ]},
@@ -44,8 +33,8 @@ cuts = [
   { name = "neutrino"                                                 },
   { name = "containment_cut"                                          },
   { name = "fiducial_cut"                                             },
-  { name = "single_photon",       parameters = [ "@gOre_threshold" ]  },
-  { name = "no_electrons",        parameters = [ "@gOre_threshold" ]  },
+  { name = "single_photon",       parameters = [ "@gORe_threshold" ]  },
+  { name = "no_electrons",        parameters = [ "@gORe_threshold" ]  },
   { name = "no_muons",            parameters = [ "@muon_threshold" ]  },
   { name = "no_charged_pions",    parameters = [ "@pion_threshold" ]  },
   { name = "single_proton",       parameters = [ "@proton_threshold" ]},
@@ -57,8 +46,8 @@ cuts = [
   { name = "neutrino"                                                 },
   { name = "containment_cut"                                          },
   { name = "fiducial_cut"                                             },
-  { name = "single_photon",        parameters = [ "@gOre_threshold" ] },
-  { name = "no_electrons",         parameters = [ "@gOre_threshold" ] },
+  { name = "single_photon",        parameters = [ "@gORe_threshold" ] },
+  { name = "no_electrons",         parameters = [ "@gORe_threshold" ] },
   { name = "no_muons",             parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
 ]
@@ -66,8 +55,8 @@ cuts = [
 [[category]] # single photon
 cuts = [
   { name = "neutrino"                                                 },
-  { name = "single_photon",        parameters = [ "@gOre_threshold" ] },
-  { name = "no_electrons",         parameters = [ "@gOre_threshold" ] },
+  { name = "single_photon",        parameters = [ "@gORe_threshold" ] },
+  { name = "no_electrons",         parameters = [ "@gORe_threshold" ] },
   { name = "no_muons",             parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
 ]
@@ -77,8 +66,8 @@ cuts = [
   { name = "neutrino"                                                 },
   { name = "containment_cut"                                          },
   { name = "fiducial_cut"                                             },
-  { name = "single_electron",      parameters = [ "@gOre_threshold" ] },
-  { name = "no_photons",           parameters = [ "@gOre_threshold" ] },
+  { name = "single_photon",        parameters = [ "@gORe_threshold" ] },
+  { name = "no_electrons",         parameters = [ "@gORe_threshold" ] },
   { name = "no_muons",             parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
 ]
@@ -86,8 +75,8 @@ cuts = [
 [[category]] # single electron
 cuts = [
   { name = "neutrino"                                                 },
-  { name = "single_electron",      parameters = [ "@gOre_threshold" ] },
-  { name = "no_photons",           parameters = [ "@gOre_threshold" ] },
+  { name = "single_photon",        parameters = [ "@gORe_threshold" ] },
+  { name = "no_electrons",         parameters = [ "@gORe_threshold" ] },
   { name = "no_muons",             parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
 ]
@@ -97,8 +86,8 @@ cuts = [
   { name = "neutrino"                                                 },
   { name = "containment_cut"                                          },
   { name = "fiducial_cut"                                             },
-  { name = "dual_photon",          parameters = [ "@gOre_threshold" ] },
-  { name = "no_electrons",         parameters = [ "@gOre_threshold" ] },
+  { name = "single_photon",        parameters = [ "@gORe_threshold" ] },
+  { name = "no_electrons",         parameters = [ "@gORe_threshold" ] },
   { name = "no_muons",             parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
 ]
@@ -106,8 +95,8 @@ cuts = [
 [[category]] # dual photon
 cuts = [
   { name = "neutrino"                                                 },
-  { name = "dual_photon",          parameters = [ "@gOre_threshold" ] },
-  { name = "no_electrons",         parameters = [ "@gOre_threshold" ] },
+  { name = "single_photon",        parameters = [ "@gORe_threshold" ] },
+  { name = "no_electrons",         parameters = [ "@gORe_threshold" ] },
   { name = "no_muons",             parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
 ]
@@ -130,7 +119,6 @@ cuts = [
 
 [[sample]]
 name = "simulation"
-# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root"
 path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
 ismc = true
 disable = false
@@ -144,7 +132,7 @@ mode = "reco"
 cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "flash_cut",       type = "reco", parameters = [ "@flash_low_t", "@flash_high_t" ] },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "no_protons",      type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -236,7 +224,7 @@ mode = "reco"
 cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "flash_cut",       type = "reco", parameters = [ "@flash_low_t", "@flash_high_t" ] },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "single_proton",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -320,15 +308,15 @@ branch = [
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
 ] 
 
-[[tree]] # selection (1γMp)
-name = "selected_1gMp"
+[[tree]] # selection (1γXp)
+name = "selected_1gXp"
 sim_only = false
 add_systematics = true
 mode = "reco"
 cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "flash_cut",       type = "reco", parameters = [ "@flash_low_t", "@flash_high_t" ] },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "multiproton",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -603,8 +591,8 @@ branch = [
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
 ]
 
-[[tree]] # signal (NC ∆->Nγ) 1gMp
-name = "signal_1gMp"
+[[tree]] # signal (NC ∆->Nγ) 1gXp
+name = "signal_1gXp"
 sim_only = true
 mode = "true"
 add_systematics = true
@@ -653,49 +641,6 @@ branch = [
   { name = "vertex_z",          type = "both" },
   { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
-  # Leading gOre
-  { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
-  { name = "primary_softmax",    type = "reco_particle", selector = "leading_primary_gOre" },
-  { name = "photon_softmax",     type = "reco_particle", selector = "leading_primary_gOre" },
-  { name = "axial_spread",       type = "reco_particle", selector = "leading_primary_gOre" },
-  { name = "directional_spread", type = "reco_particle", selector = "leading_primary_gOre" },
-  { name = "start_dedx",         type = "reco_particle", selector = "leading_primary_gOre" },
-  { name = "shower_ke",          type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "shower_dpT",         type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "polar_angle",        type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "azimuthal_angle",    type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "iou",                type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "start_x",            type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "start_y",            type = "both_particle", selector = "leading_primary_gOre" },
-  { name = "start_z",            type = "both_particle", selector = "leading_primary_gOre" },
-  # Subleading gOre
-  { name = "ancestor",           type = "true_particle", selector = "subleading_primary_gOre" },
-  { name = "primary_softmax",    type = "reco_particle", selector = "subleading_primary_gOre" },
-  { name = "photon_softmax",     type = "reco_particle", selector = "subleading_primary_gOre" },
-  { name = "axial_spread",       type = "reco_particle", selector = "subleading_primary_gOre" },
-  { name = "directional_spread", type = "reco_particle", selector = "subleading_primary_gOre" },
-  { name = "start_dedx",         type = "reco_particle", selector = "subleading_primary_gOre" },
-  { name = "shower_ke",          type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "shower_dpT",         type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "polar_angle",        type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "azimuthal_angle",    type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "iou",                type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "start_x",            type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "start_y",            type = "both_particle", selector = "subleading_primary_gOre" },
-  { name = "start_z",            type = "both_particle", selector = "subleading_primary_gOre" },
-  # Leading proton
-  { name = "ancestor",           type = "true_particle", selector = "leading_primary_proton" },
-  { name = "primary_softmax",    type = "reco_particle", selector = "leading_primary_proton" },
-  { name = "proton_softmax",     type = "reco_particle", selector = "leading_primary_proton" },
-  { name = "ke",                 type = "both_particle", selector = "leading_primary_proton" },
-  { name = "dpT",                type = "both_particle", selector = "leading_primary_proton" },
-  { name = "length",             type = "both_particle", selector = "leading_primary_proton" },
-  { name = "polar_angle",        type = "both_particle", selector = "leading_primary_proton" },
-  { name = "azimuthal_angle",    type = "both_particle", selector = "leading_primary_proton" },
-  { name = "iou",                type = "both_particle", selector = "leading_primary_proton" },
-  { name = "start_x",            type = "both_particle", selector = "leading_primary_proton" },
-  { name = "start_y",            type = "both_particle", selector = "leading_primary_proton" },
-  { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
 ]
 
 [[tree]] # signal (NC ∆->Nγ)
