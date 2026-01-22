@@ -51,16 +51,16 @@ cuts = [
   { name = "single_proton",       parameters = [ "@proton_threshold" ]},
 ]
 
-
-[[category]] # contained, fiducial, single photon
+[[category]] # Topo 1gMp
 cuts = [
   { name = "neutrino"                                                 },
   { name = "containment_cut"                                          },
   { name = "fiducial_cut"                                             },
-  { name = "single_photon",        parameters = [ "@gOre_threshold" ] },
-  { name = "no_electrons",         parameters = [ "@gOre_threshold" ] },
-  { name = "no_muons",             parameters = [ "@muon_threshold" ] },
-  { name = "no_charged_pions",     parameters = [ "@pion_threshold" ] },
+  { name = "single_photon",       parameters = [ "@gOre_threshold" ]  },
+  { name = "no_electrons",        parameters = [ "@gOre_threshold" ]  },
+  { name = "no_muons",            parameters = [ "@muon_threshold" ]  },
+  { name = "no_charged_pions",    parameters = [ "@pion_threshold" ]  },
+  { name = "multiproton",       parameters = [ "@proton_threshold" ]},
 ]
 
 [[category]] # single photon
