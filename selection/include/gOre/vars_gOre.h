@@ -532,6 +532,84 @@ namespace vars::gOre
     }
   REGISTER_VAR_SCOPE(RegistrationScope::Both, delta_mass_P, delta_mass_P);
 
+  // /**
+  //  * @brief approximate the Delta baryon mass (1γ + Mp)
+  //  * @details Use the leading photon (gOre shower) and sum over all primary protons (hadronic system).
+  //  *          Build hadronic 4-vector from protons: E_had = Σ sqrt(p_i^2 + m_p^2), p_had = Σ (p_i * dir_i),
+  //  *          then add photon 4-vector: Eγ = pγ, pγ = pγ * dirγ.
+  //  *          Return invariant mass: m = sqrt( (E_had + Eγ)^2 - |p_had + pγ|^2 ).
+  //  **/
+  // template <class T>
+  // double delta_mass_M(const T& obj)
+  // {
+  //   double mass = -999.9;
+
+  //   // leading photon candidate
+  //   size_t idx_gamma = selectors::gOre::leading_primary_gOre(obj);
+  //   if (idx_gamma == kNoMatch)
+  //     return mass;
+
+  //   auto const& gamma = obj.particles.at(idx_gamma);
+
+  //   // photon momentum magnitude and direction
+  //   double p_gamma = pvars::gOre::shower_p(gamma); // assume this ~ |p| and E for photon
+  //   utilities::three_vector dir_gamma = utilities::to_three_vector(gamma.start_dir);
+
+  //   // build photon 3-momentum vector: p⃗γ = pγ * n̂γ
+  //   utilities::three_vector p_gamma_vec = dir_gamma * p_gamma; // assumes scalar*vector is defined
+
+  //   // sum over all primary protons
+  //   double E_had = 0.0;
+  //   utilities::three_vector p_had_vec; // assumes default (0,0,0)
+  //   int nprotons = 0;
+
+  //   for (size_t i = 0; i < obj.particles.size(); ++i) {
+  //     auto const& part = obj.particles.at(i);
+
+  //     // keep only primary protons (PDG 2212)
+  //     // If your object uses a different field name for PDG, adjust accordingly.
+  //     if (part.pdg != 2212)
+  //       continue;
+
+  //     // If you need "primary" specifically (not secondary), add that condition here,
+  //     // e.g. if (!part.is_primary) continue;
+  //     ++nprotons;
+
+  //     double p_p = pvars::p(part);
+  //     utilities::three_vector dir_p = utilities::to_three_vector(part.start_dir);
+
+  //     // proton 3-momentum vector: p⃗ = p * n̂
+  //     utilities::three_vector p_p_vec = dir_p * p_p;
+
+  //     // proton energy
+  //     double E_p = std::sqrt(p_p*p_p + PROTON_MASS*PROTON_MASS);
+
+  //     E_had += E_p;
+  //     p_had_vec = p_had_vec + p_p_vec;
+  //   }
+
+  //   // require multiple protons (Mp means >=2)
+  //   if (nprotons < 2)
+  //     return mass;
+
+  //   // total 4-vector (Delta candidate)
+  //   double E_tot = E_had + p_gamma; // photon: E = p
+  //   utilities::three_vector p_tot_vec = p_had_vec + p_gamma_vec;
+
+  //   // invariant mass: m^2 = E^2 - |p|^2
+  //   double p_tot = utilities::magnitude(p_tot_vec);
+  //   double m2 = E_tot*E_tot - p_tot*p_tot;
+
+  //   // numerical safety
+  //   if (m2 < 0.0) m2 = 0.0;
+
+  //   mass = std::sqrt(m2);
+  //   return mass;
+  // }
+
+  // REGISTER_VAR_SCOPE(RegistrationScope::Both, delta_mass_M, delta_mass_M);
+
+
   /**
    * @brief approximate the Delta baryon mass (1g0p)
    * @details Make approximations for the neutron. Params are first the scaling of the PE to neutron momentum,
@@ -595,6 +673,123 @@ namespace vars::gOre
       return mass; 
     }
   REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, delta_mass_N_MC, delta_mass_N_MC);
+
+  /**
+   * @brief The Delta baryon mass square splitting for 1g1p
+   * @tparam T The type of the interaction (MC Truth only)
+   * @param obj the interaction
+   * @return double the Delta baryon mass
+   **/
+  template <class T>
+    double delta_mass_P_MC(const T& obj, std::vector<double> params = {GORE_MIN_GORE_ENERGY, GORE_MIN_MUON_ENERGY, GORE_MIN_PROTON_ENERGY, GORE_MIN_PION_ENERGY,
+                                                                        GORE_FID_THRESH_X_POS, GORE_FID_THRESH_X_NEG, GORE_FID_THRESH_Y_POS, GORE_FID_THRESH_Y_NEG, GORE_FID_THRESH_Z_POS, GORE_FID_THRESH_Z_NEG})
+    {
+      double mass = kNoMatchValue;
+      bool isnc = obj.isnc;
+      caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
+      caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
+      int resnum = obj.resnum;
+      // is NC ∆ res
+      bool is_nc_delta_res = isnc && (resnum == 0);
+      if (not is_nc_delta_res)
+        return mass;
+      // post-FSI primary particles
+      core::gOre::mc_topology topology(obj.prim, params);
+      // single photon topology (1γ and maybe some nucleons)
+      // here want only 1γ1p
+      bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
+      bool single_proton = (topology.count_with_antiparticles(2212) == 1);
+      if ((not is_single_photon_topology) || (not single_proton))
+        return mass;
+
+      // take the first proton, which is probably the right one
+      utilities::three_vector p_gamma_vec   = topology.get(  22, 0).momentum();
+      utilities::three_vector p_proton_vec = topology.get(2212, 0).momentum();
+      double p_gamma   = utilities::magnitude(p_gamma_vec);
+      double p_proton = utilities::magnitude(p_proton_vec);
+      double cosTh = utilities::dot_product(p_gamma_vec, p_proton_vec) / (p_gamma * p_proton);
+     
+      // what is the delta mass?
+      mass = std::sqrt(2.*p_gamma*(std::sqrt(p_proton*p_proton + PROTON_MASS*PROTON_MASS) - p_proton*cosTh) + PROTON_MASS*PROTON_MASS);
+      return mass; 
+    }
+  REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, delta_mass_P_MC, delta_mass_P_MC);
+
+  // /**
+  //  * @brief The Delta baryon mass reconstruction for 1γ + Np (MC truth only).
+  //  * @details Selects NC Δ resonance (resnum==0), requires single-photon topology and only photons+nucleons,
+  //  *          then requires >=2 protons (i.e., multiple protons). Builds the hadronic 4-vector from all protons,
+  //  *          adds the photon 4-vector, and returns invariant mass sqrt(E^2 - |p|^2).
+  //  * @tparam T The type of the interaction (MC Truth only)
+  //  * @param obj the interaction
+  //  * @return double the Delta baryon mass
+  //  **/
+  // template <class T>
+  // double delta_mass_M_MC(
+  //   const T& obj,
+  //   std::vector<double> params = {GORE_MIN_GORE_ENERGY, GORE_MIN_MUON_ENERGY, GORE_MIN_PROTON_ENERGY, GORE_MIN_PION_ENERGY,
+  //                                 GORE_FID_THRESH_X_POS, GORE_FID_THRESH_X_NEG, GORE_FID_THRESH_Y_POS, GORE_FID_THRESH_Y_NEG,
+  //                                 GORE_FID_THRESH_Z_POS, GORE_FID_THRESH_Z_NEG}
+  // )
+  // {
+  //   double mass = kNoMatchValue;
+
+  //   bool isnc = obj.isnc;
+  //   caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
+  //   caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
+  //   int resnum = obj.resnum;
+
+  //   // is NC ∆ res
+  //   bool is_nc_delta_res = isnc && (resnum == 0);
+  //   if (not is_nc_delta_res)
+  //     return mass;
+
+  //   // post-FSI primary particles
+  //   core::gOre::mc_topology topology(obj.prim, params);
+
+  //   // single photon topology (1γ and maybe some nucleons)
+  //   bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
+  //   if (not is_single_photon_topology)
+  //     return mass;
+
+  //   // multiple protons: require >= 2 protons
+  //   int nprotons = topology.count_with_antiparticles(2212);
+  //   if (nprotons < 2)
+  //     return mass;
+
+  //   // photon 3-momentum (only one by topology.single_photon())
+  //   utilities::three_vector p_gamma_vec = topology.get(22, 0).momentum();
+  //   double E_gamma = utilities::magnitude(p_gamma_vec); // photon: E = |p|
+
+  //   // build hadronic system from all protons: sum energies and 3-momenta
+  //   double E_had = 0.0;
+  //   utilities::three_vector p_had_vec; // assume default-constructs to (0,0,0)
+
+  //   for (int i = 0; i < nprotons; ++i) {
+  //     utilities::three_vector p_p_vec = topology.get(2212, i).momentum();
+  //     double p_p = utilities::magnitude(p_p_vec);
+  //     double E_p = std::sqrt(p_p*p_p + PROTON_MASS*PROTON_MASS);
+
+  //     E_had += E_p;
+  //     p_had_vec = p_had_vec + p_p_vec;
+  //   }
+
+  //   // total (Delta candidate) 4-vector
+  //   double E_tot = E_had + E_gamma;
+  //   utilities::three_vector p_tot_vec = p_had_vec + p_gamma_vec;
+
+  //   // invariant mass: m^2 = E^2 - |p|^2
+  //   double p_tot = utilities::magnitude(p_tot_vec);
+  //   double m2 = E_tot*E_tot - p_tot*p_tot;
+
+  //   // numerical safety
+  //   if (m2 < 0.0) m2 = 0.0;
+
+  //   mass = std::sqrt(m2);
+  //   return mass;
+  // }
+
+  // REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, delta_mass_M_MC, delta_mass_M_MC);
 
   /**
    * @brief The neutron momentum in MC truth

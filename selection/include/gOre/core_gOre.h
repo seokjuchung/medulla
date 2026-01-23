@@ -14,7 +14,7 @@
  * 50 MeV for protons
  * 25 for everything else
  **/
-#define GORE_MIN_GORE_ENERGY   10.0 // MeV
+#define GORE_MIN_GORE_ENERGY   50.0 // MeV
 #define GORE_MIN_MUON_ENERGY   25.0 // MeV
 #define GORE_MIN_PROTON_ENERGY 25.0 // MeV
 #define GORE_MIN_PION_ENERGY   25.0 // MeV
@@ -34,12 +34,12 @@
  * Fiducial Thresholds in cm
  * Nominally 25 cm for X/Y walls, 50 cm from +Z and 30 cm from -Z
  **/
-#define GORE_FID_THRESH_X_POS 25.0
-#define GORE_FID_THRESH_X_NEG 25.0
-#define GORE_FID_THRESH_Y_POS 25.0
-#define GORE_FID_THRESH_Y_NEG 25.0
+#define GORE_FID_THRESH_X_POS 20.0
+#define GORE_FID_THRESH_X_NEG 20.0
+#define GORE_FID_THRESH_Y_POS 20.0
+#define GORE_FID_THRESH_Y_NEG 20.0
 #define GORE_FID_THRESH_Z_POS 50.0
-#define GORE_FID_THRESH_Z_NEG 30.0
+#define GORE_FID_THRESH_Z_NEG 10.0
 
 #include <optional>
 

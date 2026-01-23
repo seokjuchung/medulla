@@ -3,16 +3,12 @@ gOre_threshold = 25 # MeV
 muon_threshold = 25 # MeV
 pion_threshold = 25 # MeV
 proton_threshold = 50 # MeV
-flash_low_t =  0.0 # µs
-flash_high_t = 1.6 # µs
-fiducial_xdist_pos = 25 # cm
-fiducial_xdist_neg = 25 # cm
-fiducial_ydist_pos = 25 # cm
-fiducial_ydist_neg = 25 # cm
+fiducial_xdist_pos = 20 # cm
+fiducial_xdist_neg = 20 # cm
+fiducial_ydist_pos = 20 # cm
+fiducial_ydist_neg = 20 # cm
 fiducial_zdist_pos = 50 # cm
-fiducial_zdist_neg = 30 # cm
-pion_mass_threshold = 0.4 # fraction of π0 mass
-photon_vertex_resolution = 150 # cm
+fiducial_zdist_neg = 10 # cm
 flash_pe_neutron_scaling = 0.01
 angle_neutron_scaling = 1.0
 
@@ -195,7 +191,6 @@ branch = [
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
   { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
-  { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
   { name = "primary_softmax",    type = "reco_particle", selector = "leading_primary_gOre" },
@@ -261,7 +256,7 @@ branch = [
   { name = "interaction_type", type = "mctruth" },
   { name = "neutrino_energy",  type = "mctruth" },
   { name = "baryon_res_code",  type = "mctruth" },
-  { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+  { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
@@ -287,7 +282,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -354,7 +348,7 @@ branch = [
   { name = "interaction_type", type = "mctruth" },
   { name = "neutrino_energy",  type = "mctruth" },
   { name = "baryon_res_code",  type = "mctruth" },
-  { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+  { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
@@ -380,7 +374,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -478,7 +471,6 @@ branch = [
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
   { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
-  { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
   { name = "primary_softmax",    type = "reco_particle", selector = "leading_primary_gOre" },
@@ -547,7 +539,7 @@ branch = [
   { name = "interaction_type", type = "mctruth" },
   { name = "neutrino_energy",  type = "mctruth" },
   { name = "baryon_res_code",  type = "mctruth" },
-  { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+  { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
@@ -573,7 +565,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -643,7 +634,7 @@ branch = [
   { name = "interaction_type", type = "mctruth" },
   { name = "neutrino_energy",  type = "mctruth" },
   { name = "baryon_res_code",  type = "mctruth" },
-  { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+  { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
@@ -669,7 +660,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
