@@ -522,7 +522,7 @@ namespace vars::gOre
         return mass;
       auto const& gamma  = obj.particles.at(idx_gamma);
       auto const& proton = obj.particles.at(idx_proton);
-      double p_gamma  = pvars::gOre::shower_p(gamma);
+      double p_gamma  = pvars::p(gamma);
       double p_proton = pvars::p(proton);
       utilities::three_vector dir_gamma  = utilities::to_three_vector(gamma.start_dir);
       utilities::three_vector dir_proton = utilities::to_three_vector(proton.start_dir);
@@ -623,9 +623,9 @@ namespace vars::gOre
       if (idx_gamma == kNoMatch)
         return mass;
       auto const& gamma  = obj.particles.at(idx_gamma);
-      double p_gamma   = pvars::gOre::shower_p(gamma);
+      double p_gamma   = pvars::p(gamma);
       double p_neutron = params[0]*vars::flash_total_pe(obj);
-      double cosTh = params[1]*std::sqrt(1 - std::pow(pvars::gOre::shower_dpT(gamma) / p_gamma, 2.0));
+      double cosTh = params[1]*std::sqrt(1 - std::pow(pvars::dpT(gamma) / p_gamma, 2.0));
       mass = std::sqrt(2.*p_gamma*(std::sqrt(p_neutron*p_neutron + NEUTRON_MASS*NEUTRON_MASS) - p_neutron*cosTh) + NEUTRON_MASS*NEUTRON_MASS);
       return mass;
     }
