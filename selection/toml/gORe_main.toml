@@ -9,8 +9,6 @@ fiducial_ydist_pos = 20 # cm
 fiducial_ydist_neg = 20 # cm
 fiducial_zdist_pos = 50 # cm
 fiducial_zdist_neg = 10 # cm
-flash_pe_neutron_scaling = 0.019
-angle_neutron_scaling = 0.7
 
 [general]
 output = "/exp/sbnd/data/users/sc5303/NCDelta/gOre_1g0p_1g1p_single"
@@ -195,7 +193,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -296,7 +293,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -397,7 +393,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -502,7 +497,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -606,7 +600,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
@@ -711,7 +704,6 @@ branch = [
   { name = "vertex_x",          type = "both" },
   { name = "vertex_y",          type = "both" },
   { name = "vertex_z",          type = "both" },
-  { name = "delta_mass_N",      type = "both", parameters = [ "@flash_pe_neutron_scaling", "@angle_neutron_scaling" ] },
   { name = "delta_mass_P",      type = "both" },
   # Leading gOre
   { name = "ancestor",           type = "true_particle", selector = "leading_primary_gOre" },
