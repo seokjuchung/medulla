@@ -3,17 +3,19 @@ output = "/exp/sbnd/data/users/sc5303/dqm/sbn_spine_osc2026/DQ_output.root"
 
 [[sample]]
 name = "offbeamlight"
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/data/offbeamlight/input*.flat.root"
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/data/offbeamlight/input*.flat.root"
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/data/offbeamlight/input000.flat.root"
 ismc = false
 disable = false
 
 [[tree]] # No cut nreco for DQ
-name = "noCut_nreco"
+name = "DQ_nreco"
 sim_only = false
-mode = "event"
+mode = "reco"
 cut = [
-    { name = "no_cut", type = "event" },
+    { name = "no_cut", type = "reco" },
 ]
 branch = [
-    { name = "nreco", type = "event" },
+    { name = "nreco", type = "reco_event" },
+    { name = "flash_total_pe", type = "reco" },
 ]

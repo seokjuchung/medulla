@@ -18,6 +18,38 @@
  **/
 namespace cuts::gOre
 {
+
+    /**
+     * @brief Base particle multiplicity with no primary requirement.
+     * @details This function calculates the multiplicity of a specific
+     * particle species in an interaction. The particle species is specified by
+     * its SPINE PID index. The function counts the number of particles
+     * of the specified species with a kinetic energy above a given threshold.
+     * @tparam obj the interaction to select on.
+     * @param mult the desired multiplicity for the specified particle species.
+     * @param particle_species the index of the particle species to count.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for the particle to count towards the
+     * multiplicity. The first element of the vector is used for this purpose.
+     * @return the multiplicity of the specified particle species terminated at
+     * some maximum value (the desired multiplicity + 1).
+     */
+    template<class T>
+    size_t particle_multiplicity_no_primary(const T & obj, size_t mult, size_t particle_species, std::vector<double> params={})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == particle_species && pvars::ke(p) >= params[0])
+                ++count;
+            if(count > mult)
+                break; // No need to count further.
+        }
+        return count;
+    }
+
+
+
   /**
    * @brief Is there a single gOre in the interaction?
    * @tparam T the type of interaction (true or reco).
@@ -54,6 +86,41 @@ namespace cuts::gOre
   REGISTER_CUT_SCOPE(RegistrationScope::Both, single_gOre, single_gOre);
 
   /**
+   * @brief Is there a single gOre in the interaction?
+   * @tparam T the type of interaction (true or reco).
+   * @param obj the interaction in question
+   * @param params a vector whose first element is the energy threshold
+   * @return true if there is either a single photon xor single electron
+   * @return false if there is not exactly one photon or exactly one electron
+   **/
+  template<class T>
+    bool single_gOre_no_primary(const T& obj, std::vector<double> params={GORE_MIN_GORE_ENERGY})
+    {
+      // 0 if none, 1 if either one photon or one electron, 2+ if multiple
+      size_t gOre_multiplicity = particle_multiplicity_no_primary(obj, 1, pvars::kPhoton,   params)
+                               + particle_multiplicity_no_primary(obj, 1, pvars::kElectron, params);
+      size_t    leading_idx = selectors::gOre::   leading_primary_gOre(obj);
+      size_t subleading_idx = selectors::gOre::subleading_primary_gOre(obj);
+      bool    leading_abv_thresh = (   leading_idx != kNoMatch) && (pvars::ke(obj.particles.at(   leading_idx)) > params.at(0));
+      bool subleading_abv_thresh = (subleading_idx != kNoMatch) && (pvars::ke(obj.particles.at(subleading_idx)) > params.at(0));
+      if ((gOre_multiplicity == 1) && subleading_abv_thresh)
+      {
+        std::cout << "Found single shower event with subleading shower above threshold:\n"
+                  << "  Photon Multiplicity: " << particle_multiplicity_no_primary(obj, 1, pvars::kPhoton,   params) << '\n'
+                  << "  Electron Multipicity: " << particle_multiplicity_no_primary(obj, 1, pvars::kElectron, params) << '\n'
+                  << "  Leading gOre:\n"
+                  << "    pid: " << obj.particles.at(   leading_idx).pid << '\n'
+                  << "    KE: " <<  pvars::ke(obj.particles.at(   leading_idx)) << '\n'
+                  << "  Subeading gOre:\n"
+                  << "    pid: " << obj.particles.at(subleading_idx).pid << '\n'
+                  << "    KE: " <<  pvars::ke(obj.particles.at(subleading_idx)) << '\n'
+                  << std::endl;
+      }
+      return (gOre_multiplicity == 1);
+    }
+  REGISTER_CUT_SCOPE(RegistrationScope::Both, single_gOre_no_primary, single_gOre_no_primary);
+
+  /**
    * @brief Does the interaction have a single photon or single electron topology?
    * @details This cut makes use of the thresholds defined in core::gOre::Interaction.
    * Require there are no muons or pions above threshold, either a single photon or a single electron,
@@ -71,6 +138,26 @@ namespace cuts::gOre
              cuts::no_charged_pions (obj, {params.at(2)}) ;
     }
   REGISTER_CUT_SCOPE(RegistrationScope::Both, gOre_topology, gOre_topology); 
+
+  /**
+   * @brief Does the interaction have a single photon or single electron topology?
+   * @details This cut makes use of the thresholds defined in core::gOre::Interaction.
+   * Require there are no muons or pions above threshold, either a single photon or a single electron,
+   * but no requirement on the protons. The photon and electrons are to be distinguished later with an
+   * optimized PID cut.
+   * @tparam T the type of interaction (true or reco).
+   * @param obj the interaction in question
+   * @return true if there is a single shower-like particle and no muons or pions, false otherwise.
+   **/
+  template<class T>
+    bool gOre_topology_no_primary(const T& obj, std::vector<double> params={GORE_MIN_GORE_ENERGY, GORE_MIN_MUON_ENERGY, GORE_MIN_PION_ENERGY})
+    {
+      return cuts::gOre::single_gOre_no_primary(obj, {params.at(0)}) &&
+             cuts::no_muons         (obj, {params.at(1)}) &&
+             cuts::no_charged_pions (obj, {params.at(2)}) ;
+    }
+  REGISTER_CUT_SCOPE(RegistrationScope::Both, gOre_topology_no_primary, gOre_topology_no_primary); 
+
 
   /**
    * @brief Does the gOre shower fall in our energy range of interest?
