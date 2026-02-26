@@ -137,8 +137,8 @@ cuts = [
 [[sample]]
 name = "simulation"
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root"
-# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root"
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root"
 ismc = true
 disable = false
 
@@ -156,6 +156,7 @@ cut = [
   # { name = "gOre_topology_no_primary",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "no_protons",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
+
 branch = [
   # MC Truth
   { name = "cc",               type = "mctruth" },
