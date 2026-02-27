@@ -116,7 +116,7 @@ namespace vars::gOre
       //if (not interaction.is_valid)
       //  return std::numeric_limits<double>::quiet_NaN();
       //return static_cast<double>(interaction.nProtons());
-      return cuts::particle_multiplicity_no_primary(obj, std::numeric_limits<size_t>::max(), pvars::kProton, params);
+      return cuts::gOre::particle_multiplicity_no_primary(obj, std::numeric_limits<size_t>::max(), pvars::kProton, params);
     }
   REGISTER_VAR_SCOPE(RegistrationScope::Both, n_protons_no_primary, n_protons_no_primary);
 
