@@ -105,6 +105,23 @@ namespace vars::gOre
   REGISTER_VAR_SCOPE(RegistrationScope::Both, n_protons, n_protons);
 
   /**
+   * @brief how many protons (including non-primary) are in the interaction?
+   * @param obj the interaction of interest (data or MC)
+   * @return the number of protons as a double
+  **/
+  template <class T>
+    double n_protons_no_primary(const T& obj, std::vector<double> params = {GORE_MIN_PROTON_ENERGY})
+    {
+      //core::gOre::Interaction<T> interaction(obj);
+      //if (not interaction.is_valid)
+      //  return std::numeric_limits<double>::quiet_NaN();
+      //return static_cast<double>(interaction.nProtons());
+      return cuts::particle_multiplicity_no_primary(obj, std::numeric_limits<size_t>::max(), pvars::kProton, params);
+    }
+  REGISTER_VAR_SCOPE(RegistrationScope::Both, n_protons_no_primary, n_protons_no_primary);
+
+
+  /**
    * @brief the total KE of protons above threshold
    * @param obj the interaction of interest (data or MC)
    **/
