@@ -152,8 +152,8 @@ cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
-  { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  # { name = "gOre_topology_no_primary",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
+  # { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
+  { name = "gOre_topology_no_primary",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "no_protons",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
 
@@ -261,8 +261,8 @@ cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
-  { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  # { name = "gOre_topology_no_primary",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
+  # { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
+  { name = "gOre_topology_no_primary",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "single_proton",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
 branch = [
