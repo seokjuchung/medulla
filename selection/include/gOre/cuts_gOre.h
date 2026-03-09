@@ -48,6 +48,43 @@ namespace cuts::gOre
         return count;
     }
 
+  /**
+    * @brief Binding for zero particle proton multiplicity cut (negation of
+    * nonzero_particle_multiplicity).
+    * @details This function binds the nonzero particle multiplicity cut for
+    * protons, which corresponds to the index 4 in the
+    * @ref utilities::count_primaries function. The negation of this
+    * function is used to select interactions with no primary protons.
+    * @param obj the interaction to select on.
+    * @param params the parameters for the cut. In this case, this sets the
+    * kinetic energy threshold for a proton to count towards the
+    * multiplicity. Defaults to 50 MeV.
+    * @return true if the interaction has a nonzero primary proton.
+    */
+  template<class T>
+  bool no_proton_inclusive(const T & obj, std::vector<double> params={50.0,})
+  {
+      return particle_multiplicity_no_primary(obj, 0, 4, params) == 0;
+  }
+  REGISTER_CUT_SCOPE(RegistrationScope::Both, no_proton_inclusive, no_proton_inclusive);
+
+
+  /**
+    * @brief Cut to select interactions with more than one proton.
+    * @details This function applies a cut to select interactions with
+    * more than one proton (N > 1). This is complementary to the single_proton
+    * cut.
+    * @tparam T the type of interaction (true or reco).
+    * @param obj the interaction to select on.
+    * @return true if the interaction has more than one proton.
+    */
+  template<class T>
+  bool Nproton_inclusive(const T & obj, std::vector<double> params={50.0,})
+  {
+      return particle_multiplicity_no_primary(obj, 1, 4, params) > 0;
+  }
+  REGISTER_CUT_SCOPE(RegistrationScope::Both, Nproton_inclusive, Nproton_inclusive);
+
 
 
   /**

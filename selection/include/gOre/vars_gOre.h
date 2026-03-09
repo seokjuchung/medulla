@@ -110,7 +110,7 @@ namespace vars::gOre
    * @return the number of protons as a double
   **/
   template <class T>
-    double n_protons_no_primary(const T& obj, std::vector<double> params = {GORE_MIN_PROTON_ENERGY})
+    double n_protons_inclusive(const T& obj, std::vector<double> params = {GORE_MIN_PROTON_ENERGY})
     {
       //core::gOre::Interaction<T> interaction(obj);
       //if (not interaction.is_valid)
@@ -118,7 +118,7 @@ namespace vars::gOre
       //return static_cast<double>(interaction.nProtons());
       return cuts::gOre::particle_multiplicity_no_primary(obj, std::numeric_limits<size_t>::max(), pvars::kProton, params);
     }
-  REGISTER_VAR_SCOPE(RegistrationScope::Both, n_protons_no_primary, n_protons_no_primary);
+  REGISTER_VAR_SCOPE(RegistrationScope::Both, n_protons_inclusive, n_protons_inclusive);
 
 
   /**
