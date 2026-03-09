@@ -146,7 +146,7 @@ disable = false
 
 
 [[tree]] # no cut
-name = "selected_1g0p"
+name = "noCut"
 sim_only = false
 add_systematics = true
 mode = "reco"
@@ -159,6 +159,7 @@ branch = [
   { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   # True
+  { name = "neutrino_id",   type = "true" },
   { name = "category",      type = "true" },
   { name = "gOre_category", type = "true", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   # Reco
@@ -170,13 +171,13 @@ branch = [
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
-  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
   { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
 ]
 
 [[tree]] # min cut
-name = "selected_1g0p"
+name = "minCut"
 sim_only = false
 add_systematics = true
 mode = "reco"
@@ -191,6 +192,7 @@ branch = [
   { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   # True
+  { name = "neutrino_id",   type = "true" },
   { name = "category",      type = "true" },
   { name = "gOre_category", type = "true", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   # Reco
@@ -204,7 +206,7 @@ branch = [
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
-  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
   { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
   # Leading gOre
@@ -213,7 +215,7 @@ branch = [
   { name = "ke",                 type = "both_particle", selector = "subleading_primary_gOre" },
   # Leading secondary gOre
   { name = "ke",                 type = "both_particle", selector = "leading_secondary_gOre" },
-  # Subleading secondary gOre
+  # # Subleading secondary gOre
   { name = "ke",                 type = "both_particle", selector = "subleading_secondary_gOre" },
 ]
 
@@ -239,6 +241,7 @@ branch = [
   { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   # True
+  { name = "neutrino_id",   type = "true" },
   { name = "category",      type = "true" },
   { name = "gOre_category", type = "true", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   # Reco
@@ -252,7 +255,7 @@ branch = [
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
-  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
   { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
   # Leading gOre
@@ -285,6 +288,7 @@ branch = [
   { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   # True
+  { name = "neutrino_id",   type = "true" },
   { name = "category",      type = "true" },
   { name = "gOre_category", type = "true", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   # Reco
@@ -298,7 +302,7 @@ branch = [
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
-  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
   { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
   # Leading gOre
@@ -333,6 +337,7 @@ branch = [
   { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
                                                                 "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
   # True
+  { name = "neutrino_id",   type = "true" },
   { name = "category",      type = "true" },
   { name = "gOre_category", type = "true", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   # Reco
@@ -346,7 +351,7 @@ branch = [
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
-  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
   { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
   { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
   # Leading gOre
