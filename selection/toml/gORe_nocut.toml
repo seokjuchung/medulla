@@ -166,9 +166,7 @@ branch = [
   { name = "containment",    type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
-  { name = "flash_total_pe", type = "reco" },
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
@@ -200,7 +198,6 @@ branch = [
   { name = "containment",    type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -214,10 +211,10 @@ branch = [
   { name = "ke",                 type = "both_particle", selector = "leading_primary_gOre" },
   # Subleading gOre
   { name = "ke",                 type = "both_particle", selector = "subleading_primary_gOre" },
-  # Leading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "leading_secondary_shower" },
-  # Subleading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_shower" },
+  # Leading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "leading_secondary_gOre" },
+  # Subleading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_gOre" },
 ]
 
 
@@ -249,7 +246,6 @@ branch = [
   { name = "containment",    type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -263,10 +259,10 @@ branch = [
   { name = "ke",                 type = "both_particle", selector = "leading_primary_gOre" },
   # Subleading gOre
   { name = "ke",                 type = "both_particle", selector = "subleading_primary_gOre" },
-  # Leading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "leading_secondary_shower" },
-  # Subleading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_shower" },
+  # Leading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "leading_secondary_gOre" },
+  # Subleading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_gOre" },
 ]
 
 [[tree]] # signal (NC ∆->Nγ) 1g1p
@@ -296,7 +292,6 @@ branch = [
   { name = "containment",    type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -310,10 +305,10 @@ branch = [
   { name = "ke",                 type = "both_particle", selector = "leading_primary_gOre" },
   # Subleading gOre
   { name = "ke",                 type = "both_particle", selector = "subleading_primary_gOre" },
-  # Leading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "leading_secondary_shower" },
-  # Subleading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_shower" },
+  # Leading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "leading_secondary_gOre" },
+  # Subleading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_gOre" },
 ]
 
 
@@ -345,7 +340,6 @@ branch = [
   { name = "containment",    type = "reco" },
   { name = "valid_flashmatch", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
-  { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -359,8 +353,8 @@ branch = [
   { name = "ke",                 type = "both_particle", selector = "leading_primary_gOre" },
   # Subleading gOre
   { name = "ke",                 type = "both_particle", selector = "subleading_primary_gOre" },
-  # Leading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "leading_secondary_shower" },
-  # Subleading secondary shower
-  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_shower" },
+  # Leading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "leading_secondary_gOre" },
+  # Subleading secondary gOre
+  { name = "ke",                 type = "both_particle", selector = "subleading_secondary_gOre" },
 ]
