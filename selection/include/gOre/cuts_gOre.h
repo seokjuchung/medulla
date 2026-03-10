@@ -86,6 +86,23 @@ namespace cuts::gOre
   REGISTER_CUT_SCOPE(RegistrationScope::Both, Nproton_inclusive, Nproton_inclusive);
 
 
+  /**
+    * @brief Cut to select interactions with more than one proton.
+    * @details This function applies a cut to select interactions with
+    * more than one proton (N > 1). This is complementary to the single_proton
+    * cut.
+    * @tparam T the type of interaction (true or reco).
+    * @param obj the interaction to select on.
+    * @return true if the interaction has more than one proton.
+    */
+  template<class T>
+  bool nonzeroproton(const T & obj, std::vector<double> params={50.0,})
+  {
+      return particle_multiplicity(obj, 1, 4, params) > 0;
+  }
+  REGISTER_CUT_SCOPE(RegistrationScope::Both, nonzeroproton, nonzeroproton);
+
+
 
   /**
    * @brief Is there a single gOre in the interaction?

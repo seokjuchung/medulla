@@ -137,9 +137,9 @@ cuts = [
 [[sample]]
 name = "simulation"
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # 5e18 old
-# path = "/pnfs/sbnd/scratch/users/mueller/MCP2025B/gen1_updated_training/hadd_output2/*.flat.root" # 5e18 new
+path = "/pnfs/sbnd/scratch/users/mueller/MCP2025B/gen1_updated_training/hadd_output2/*.flat.root" # 5e18 new
 
 ismc = true
 disable = false
