@@ -32,6 +32,23 @@ using RParticleType = caf::Proxy<caf::SRParticleDLP>;
 using EventType = caf::Proxy<caf::StandardRecord>;
 using SpillType = caf::Proxy<caf::SRBNBInfo>;
 
+/**
+ * @brief Context struct for G4Truth-scope variables.
+ * @details Carries both the matched GENIE truth interaction (for finding
+ * GENIE primaries) and a pointer to the full StandardRecord (for accessing
+ * rec.true_particles — the flat G4 particle array with SRTrueParticle fields
+ * like wallout, wallin, start_process, end_process, generator, startp, visE,
+ * nhit, etc. that are not exposed by SRParticleTruthDLP).
+ *
+ * In TOML use type = "g4truth" on a branch in a true/reco-mode tree.
+ * The registered name prefix is "g4truth_".
+ */
+struct G4TruthContext {
+    const caf::Proxy<caf::SRTrueInteraction>* mc; ///< matched GENIE truth interaction
+    const caf::Proxy<caf::StandardRecord>*    sr; ///< full StandardRecord (for true_particles)
+};
+using G4TruthType = G4TruthContext;
+
 using NamedSpillMultiVar = std::pair<std::string, ana::SpillMultiVar>;
 
 // Set a sensible default for a no-match scenario.
@@ -188,7 +205,7 @@ inline std::function<ValueT(const EventT&)> bind(const std::vector<double>& pars
  */
 enum class RegistrationScope { True, Reco, Both, MCTruth,
                                TrueParticle, RecoParticle, BothParticle,
-                               Event, Spill };
+                               Event, Spill, G4Truth };
 
 // Register a cut with scope, auto‐detecting its signature
 #define REGISTER_CUT_SCOPE(scope, name, fn)                                                \
@@ -252,6 +269,10 @@ namespace                                                                       
         if constexpr((scope)==RegistrationScope::Event)                                    \
             VarFactoryRegistry<EventType>::instance().register_fn(                         \
                 "event_" #name, bind<fn<EventType>, EventType, double>                     \
+            );                                                                             \
+        if constexpr((scope)==RegistrationScope::G4Truth)                                  \
+            VarFactoryRegistry<G4TruthType>::instance().register_fn(                       \
+                "g4truth_" #name, bind<fn<G4TruthType>, G4TruthType, double>               \
             );                                                                             \
         return true;                                                                       \
     }();                                                                                   \

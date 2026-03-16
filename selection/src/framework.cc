@@ -362,6 +362,19 @@ NamedSpillMultiVar construct(const std::vector<cfg::ConfigurationTable> & cuts,
                 event_cut,
                 ismc));
         }
+        else if(var_type == "g4truth")
+        {
+            var_name = "g4truth_" + var_name;
+            auto factory = VarFactoryRegistry<G4TruthType>::instance().get(var_name);
+            auto var_fn = factory(varPars);
+            return std::make_pair(var_name, spill_multivar_helper<TType, RType, TParticleType, G4TruthType>(
+                true_cut,
+                reco_cut_functions.empty() ? std::nullopt : std::optional<CutFn<RType>>(reco_cut),
+                true_particle_cut,
+                var_fn,
+                event_cut,
+                ismc));
+        }
         else if(var_type == "true_particle")
         {
             var_name = "true_particle_" + var_name;
@@ -514,6 +527,19 @@ NamedSpillMultiVar construct(const std::vector<cfg::ConfigurationTable> & cuts,
                 event_cut,
                 ismc));
         }
+        else if(var_type == "g4truth")
+        {
+            var_name = "g4truth_" + var_name;
+            auto factory = VarFactoryRegistry<G4TruthType>::instance().get(var_name);
+            auto var_fn = factory(varPars);
+            return std::make_pair(var_name, spill_multivar_helper<RType, TType, TParticleType, G4TruthType>(
+                reco_cut,
+                true_cut_functions.empty() ? std::nullopt : std::optional<CutFn<TType>>(true_cut),
+                true_particle_cut,
+                var_fn,
+                event_cut,
+                ismc));
+        }
         else if(var_type == "true_particle")
         {
             var_name = "true_particle_" + var_name;
@@ -636,6 +662,13 @@ ana::SpillMultiVar spill_multivar_helper(
                         values.push_back(i.nu_id >= 0 ? var(sr->mc.nu[i.nu_id]) : kNoMatchValue);
                     }
                 }
+                else if constexpr(std::is_same_v<VarOn, G4TruthType>)
+                {
+                    if(cuts(i) && (!comps || (match_id != kNoMatch && (*comps)(sr->dlp[match_id]))))
+                    {
+                        values.push_back(i.nu_id >= 0 ? var(G4TruthType{&sr->mc.nu[i.nu_id], sr}) : kNoMatchValue);
+                    }
+                }
                 else if constexpr(std::is_same_v<VarOn, TParticleType> || std::is_same_v<VarOn, RParticleType>)
                 {
                     if(cuts(i) && (!comps || (match_id != kNoMatch && (*comps)(sr->dlp[match_id]))))
@@ -710,6 +743,21 @@ ana::SpillMultiVar spill_multivar_helper(
                         {
                             int64_t nu_id = sr->dlp_true[match_id].nu_id;
                             values.push_back(nu_id >= 0 ? var(sr->mc.nu[nu_id]) : kNoMatchValue);
+                        }
+                    }
+                }
+                else if constexpr(std::is_same_v<VarOn, G4TruthType>)
+                {
+                    if(cuts(i) && (!comps || (match_id != kNoMatch && (*comps)(sr->dlp_true[match_id])) || !ismc))
+                    {
+                        if(!ismc || match_id == kNoMatch)
+                        {
+                            values.push_back(kNoMatchValue);
+                        }
+                        else
+                        {
+                            int64_t nu_id = sr->dlp_true[match_id].nu_id;
+                            values.push_back(nu_id >= 0 ? var(G4TruthType{&sr->mc.nu[nu_id], sr}) : kNoMatchValue);
                         }
                     }
                 }
@@ -852,6 +900,7 @@ template class Registry<CutFactory<SpillType>>;
 template class Registry<VarFactory<TType>>;
 template class Registry<VarFactory<RType>>;
 template class Registry<VarFactory<MCTruth>>;
+template class Registry<VarFactory<G4TruthType>>;
 template class Registry<VarFactory<TParticleType>>;
 template class Registry<VarFactory<RParticleType>>;
 template class Registry<VarFactory<EventType>>;

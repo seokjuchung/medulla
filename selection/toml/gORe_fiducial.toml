@@ -9,6 +9,14 @@ fiducial_ydist_pos = 20 # cm
 fiducial_ydist_neg = 20 # cm
 fiducial_zdist_pos = 50 # cm
 fiducial_zdist_neg = 10 # cm
+hard_fiducial_xdist_pos = 40 # cm
+hard_fiducial_xdist_neg = 40 # cm
+hard_fiducial_ydist_pos = 40 # cm
+hard_fiducial_ydist_neg = 40 # cm
+hard_fiducial_zdist_pos = 70 # cm
+hard_fiducial_zdist_neg = 30 # cm
+
+
 
 [general]
 output = "/exp/sbnd/data/users/sc5303/NCDelta/gOre_1g0p_1g1p_single"
@@ -167,16 +175,16 @@ branch = [
   { name = "neutrino_energy",  type = "mctruth" },
   { name = "baryon_res_code",  type = "mctruth" },
   { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
-                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+                                                                "@hard_fiducial_xdist_pos", "@hard_fiducial_xdist_neg", "@hard_fiducial_ydist_pos", "@hard_fiducial_ydist_neg", "@hard_fiducial_zdist_pos", "@hard_fiducial_zdist_neg", ] },
   { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
-                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+                                                                "@hard_fiducial_xdist_pos", "@hard_fiducial_xdist_neg", "@hard_fiducial_ydist_pos", "@hard_fiducial_ydist_neg", "@hard_fiducial_zdist_pos", "@hard_fiducial_zdist_neg", ] },
 
   { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
-                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+                                                                "@hard_fiducial_xdist_pos", "@hard_fiducial_xdist_neg", "@hard_fiducial_ydist_pos", "@hard_fiducial_ydist_neg", "@hard_fiducial_zdist_pos", "@hard_fiducial_zdist_neg", ] },
   { name = "neutron_cosTh", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
-                                                              "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+                                                              "@hard_fiducial_xdist_pos", "@hard_fiducial_xdist_neg", "@hard_fiducial_ydist_pos", "@hard_fiducial_ydist_neg", "@hard_fiducial_zdist_pos", "@hard_fiducial_zdist_neg", ] },
   { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
-                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+                                                                "@hard_fiducial_xdist_pos", "@hard_fiducial_xdist_neg", "@hard_fiducial_ydist_pos", "@hard_fiducial_ydist_neg", "@hard_fiducial_zdist_pos", "@hard_fiducial_zdist_neg", ] },
   # True
   { name = "neutrino_id",   type = "true" },
   { name = "category",      type = "true" },
