@@ -153,7 +153,7 @@ mode = "reco"
 cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "time_containment_cut", type = "reco" },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "no_proton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -185,7 +185,7 @@ branch = [
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
   { name = "flash",          type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "time_containment_cut", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
@@ -302,7 +302,7 @@ mode = "reco"
 cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "time_containment_cut", type = "reco" },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -333,7 +333,7 @@ branch = [
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
   { name = "flash",          type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "time_containment_cut", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
@@ -485,7 +485,7 @@ branch = [
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
   { name = "flash",          type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "time_containment_cut", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
@@ -636,7 +636,7 @@ branch = [
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
   { name = "flash",          type = "reco" },
-  { name = "valid_flashmatch", type = "reco" },
+  { name = "time_containment_cut", type = "reco" },
   { name = "gOre_topology",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "gOre_topology_no_primary",  type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "flash_time",     type = "reco" },
