@@ -33,6 +33,8 @@ flash_high_t             =  1.6
 [[sample]]
 name = "cv"
 path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root"
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root"
+
 ismc = true
 disable = false
 
