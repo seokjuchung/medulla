@@ -154,6 +154,7 @@ cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
   { name = "time_containment_cut", type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "no_proton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -303,6 +304,7 @@ cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
   { name = "time_containment_cut", type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
   { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
@@ -451,6 +453,7 @@ add_systematics = true
 cut = [
     { name = "fiducial_cut",                type = "true"                                       },
     { name = "containment_cut",             type = "true"                                       },
+    { name = "neutrino2026_veto",           type = "true"                                       },
     { name = "single_photon",               type = "true", parameters = [ "@gOre_threshold" ]   },
     { name = "no_electrons",                type = "true", parameters = [ "@gOre_threshold" ]   },
     { name = "no_muons",                    type = "true", parameters = [ "@muon_threshold" ]   },
@@ -602,6 +605,7 @@ add_systematics = true
 cut = [
     { name = "fiducial_cut",                type = "true"                                       },
     { name = "containment_cut",             type = "true"                                       },
+    { name = "neutrino2026_veto",           type = "true"                                       },
     { name = "single_photon",               type = "true", parameters = [ "@gOre_threshold" ]   },
     { name = "no_electrons",                type = "true", parameters = [ "@gOre_threshold" ]   },
     { name = "no_muons",                    type = "true", parameters = [ "@muon_threshold" ]   },

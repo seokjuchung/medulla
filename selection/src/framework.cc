@@ -17,6 +17,11 @@
 #include "framework.h"
 #include "configuration.h"
 
+namespace context
+{
+    caf::Det_t current_detector = static_cast<caf::Det_t>(0);
+}
+
 // Get the singleton instance of the Registry.
 template<typename ValueT>
 Registry<ValueT> & Registry<ValueT>::instance()
@@ -616,6 +621,10 @@ ana::SpillMultiVar spill_multivar_helper(
 
         // Check if this event passes the event cut.
         if(!event_cut(*sr)) return values;
+
+        // Set the per-event detector context so that interaction-level cuts
+        // and variables can branch on the detector without access to the SR.
+        context::current_detector = sr->hdr.det;
 
         // Case: configuration parameter "mode" is set to "true."
         if constexpr (std::is_same_v<CutsOn, TType>)

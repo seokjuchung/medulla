@@ -55,6 +55,17 @@ using NamedSpillMultiVar = std::pair<std::string, ana::SpillMultiVar>;
 constexpr size_t kNoMatch = std::numeric_limits<size_t>::max();
 constexpr double kNoMatchValue = std::numeric_limits<double>::quiet_NaN();
 
+/**
+ * @brief Global context for per-event state shared across cuts and variables.
+ * @details This namespace provides global state that is set at the start of
+ * each event's processing so that cuts and variables acting on individual
+ * interactions can access per-event information (e.g. which detector).
+ */
+namespace context
+{
+    extern caf::Det_t current_detector;
+}
+
 //-----------------------------------------------------------------------------
 // 1) Generic registry template
 //-----------------------------------------------------------------------------
