@@ -23,10 +23,9 @@ pidfn = "gOre_pid"
 
 [[sample]]
 name = "simulation"
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
-# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # 5e18 old
-# path = "/pnfs/sbnd/scratch/users/mueller/MCP2025B/gen1_updated_training/hadd_output2/*.flat.root" # 5e18 new
 # path = "/pnfs/sbnd/scratch/users/mueller/test_gen2/flatcaf/*.flat.caf.root"
 
 ismc = true
@@ -74,13 +73,12 @@ branch = [
   # Reco_Cuts
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
-  { name = "flash",          type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
   { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
   { name = "no_protons", type = "reco", parameters = [ "@proton_threshold" ] },
-  { name = "neutrino2026_veto", type = "reco" },
-  { name = "flash_time",     type = "reco" },
+  { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] },
   # Reco
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -210,7 +208,9 @@ cut = [
   { name = "fiducial_cut",    type = "reco" },
   { name = "containment_cut", type = "reco" },
   { name = "neutrino2026_veto", type = "reco" },
-  { name = "gOre_topology",   type = "reco", parameters = [ "@gOre_threshold", "@muon_threshold", "@pion_threshold" ] },
+  { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
+  { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
+  { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
   { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] }
 ]
 branch = [
@@ -239,13 +239,12 @@ branch = [
   # Reco_Cuts
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
-  { name = "flash",          type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
   { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
   { name = "no_protons", type = "reco", parameters = [ "@proton_threshold" ] },
-  { name = "neutrino2026_veto", type = "reco" },
-  { name = "flash_time",     type = "reco" },
+  { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] },
   # Reco
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -409,13 +408,12 @@ branch = [
   # Reco_Cuts
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
-  { name = "flash",          type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
   { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
   { name = "no_protons", type = "reco", parameters = [ "@proton_threshold" ] },
-  { name = "neutrino2026_veto", type = "reco" },
-  { name = "flash_time",     type = "reco" },
+  { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] },
   # Reco
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
@@ -578,13 +576,12 @@ branch = [
   # Reco_Cuts
   { name = "fiducial",       type = "reco" },
   { name = "containment",    type = "reco" },
-  { name = "flash",          type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
   { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
   { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
   { name = "no_protons", type = "reco", parameters = [ "@proton_threshold" ] },
-  { name = "neutrino2026_veto", type = "reco" },
-  { name = "flash_time",     type = "reco" },
+  { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] },
   # Reco
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
