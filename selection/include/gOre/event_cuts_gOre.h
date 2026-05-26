@@ -44,6 +44,32 @@ namespace ecuts::gOre
   REGISTER_CUT_SCOPE(RegistrationScope::Event, has_nc_delta_ng_interaction, has_nc_delta_ng_interaction);
 
   /**
+   * @brief Does the event contain a true CC ∆->Nγ?
+   * @details This is an event cut so it can be supplied for our signal trees
+   * @tparam T the top-level record.
+   * @param sr the StandardRecord to apply the cut on.
+   * @return true if the event has a true CC ∆->Nγ 
+   **/
+  template <typename T>
+    bool has_cc_delta_ng_interaction(const T& sr, std::vector<double> params = {GORE_MIN_GORE_ENERGY, GORE_MIN_MUON_ENERGY, GORE_MIN_PROTON_ENERGY, GORE_MIN_PION_ENERGY,
+                                                                                GORE_FID_THRESH_X_POS, GORE_FID_THRESH_X_NEG, GORE_FID_THRESH_Y_POS, GORE_FID_THRESH_Y_NEG, GORE_FID_THRESH_Z_POS, GORE_FID_THRESH_Z_NEG})
+    {
+      // loop over the sr truth info and check if there's a hit
+      for (auto const& interaction : sr.mc.nu)
+      {
+        bool iscc = !interaction.isnc;
+        bool delta_res = (interaction.resnum == 0);
+        core::gOre::mc_topology topology(interaction.prim, params);
+        bool single_photon = topology.single_photon() && topology.only_photons_nucleons_and_muons();
+        if (iscc && delta_res && single_photon)
+          return true;
+      }
+      return false;
+    }
+  REGISTER_CUT_SCOPE(RegistrationScope::Event, has_cc_delta_ng_interaction, has_cc_delta_ng_interaction);
+
+
+  /**
    * @brief Does the event contain only a true NC ∆->Nγ?
    * @details This is an event cut so it can be supplied for our signal trees
    * @tparam T the top-level record.

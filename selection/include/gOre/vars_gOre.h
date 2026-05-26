@@ -665,15 +665,18 @@ namespace vars::gOre
       caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
       caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
       int resnum = obj.resnum;
-      // is NC ∆ res
-      bool is_nc_delta_res = isnc && (resnum == 0);
-      if (not is_nc_delta_res)
+      // is ∆ res (NC or CC)
+      bool is_delta_res = (resnum == 0);
+      if (not is_delta_res)
         return mass;
       // post-FSI primary particles
       core::gOre::mc_topology topology(obj.prim, params);
-      // single photon topology (1γ and maybe some nucleons)
-      // here want only 1γ0p
-      bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
+      // single photon + no proton topology:
+      //   NC: 1γ + nucleons only
+      //   CC: 1γ + single muon + nucleons
+      bool is_single_photon_topology = isnc
+        ? (topology.single_photon() && topology.only_photons_and_nucleons())
+        : (topology.single_photon() && topology.only_photons_nucleons_and_muons() && topology.count_with_antiparticles(13) == 1);
       bool no_protons = (topology.count_with_antiparticles(2212) == 0);
       if ((not is_single_photon_topology) || (not no_protons))
         return mass;
@@ -706,15 +709,18 @@ namespace vars::gOre
       caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
       caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
       int resnum = obj.resnum;
-      // is NC ∆ res
-      bool is_nc_delta_res = isnc && (resnum == 0);
-      if (not is_nc_delta_res)
+      // is ∆ res (NC or CC)
+      bool is_delta_res = (resnum == 0);
+      if (not is_delta_res)
         return mass;
       // post-FSI primary particles
       core::gOre::mc_topology topology(obj.prim, params);
-      // single photon topology (1γ and maybe some nucleons)
-      // here want only 1γ1p
-      bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
+      // single photon + single proton topology:
+      //   NC: 1γ + nucleons only
+      //   CC: 1γ + single muon + nucleons
+      bool is_single_photon_topology = isnc
+        ? (topology.single_photon() && topology.only_photons_and_nucleons())
+        : (topology.single_photon() && topology.only_photons_nucleons_and_muons() && topology.count_with_antiparticles(13) == 1);
       bool single_proton = (topology.count_with_antiparticles(2212) == 1);
       if ((not is_single_photon_topology) || (not single_proton))
         return mass;
@@ -823,15 +829,18 @@ namespace vars::gOre
       caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
       caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
       int resnum = obj.resnum;
-      // is NC ∆ res
-      bool is_nc_delta_res = isnc && (resnum == 0);
-      if (not is_nc_delta_res)
+      // is ∆ res (NC or CC)
+      bool is_delta_res = (resnum == 0);
+      if (not is_delta_res)
         return momentum;
       // post-FSI primary particles
       core::gOre::mc_topology topology(obj.prim, params);
-      // single photon topology (1γ and maybe some nucleons)
-      // here want only 1γ0p
-      bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
+      // single photon + no proton topology:
+      //   NC: 1γ + nucleons only
+      //   CC: 1γ + single muon + nucleons
+      bool is_single_photon_topology = isnc
+        ? (topology.single_photon() && topology.only_photons_and_nucleons())
+        : (topology.single_photon() && topology.only_photons_nucleons_and_muons() && topology.count_with_antiparticles(13) == 1);
       bool no_protons = (topology.count_with_antiparticles(2212) == 0);
       if ((not is_single_photon_topology) || (not no_protons))
         return momentum;
@@ -859,15 +868,18 @@ namespace vars::gOre
       caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
       caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
       int resnum = obj.resnum;
-      // is NC ∆ res
-      bool is_nc_delta_res = isnc && (resnum == 0);
-      if (not is_nc_delta_res)
+      // is ∆ res (NC or CC)
+      bool is_delta_res = (resnum == 0);
+      if (not is_delta_res)
         return cosTh;
       // post-FSI primary particles
       core::gOre::mc_topology topology(obj.prim, params);
-      // single photon topology (1γ and maybe some nucleons)
-      // here want only 1γ0p
-      bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
+      // single photon + no proton topology:
+      //   NC: 1γ + nucleons only
+      //   CC: 1γ + single muon + nucleons
+      bool is_single_photon_topology = isnc
+        ? (topology.single_photon() && topology.only_photons_and_nucleons())
+        : (topology.single_photon() && topology.only_photons_nucleons_and_muons() && topology.count_with_antiparticles(13) == 1);
       bool no_protons = (topology.count_with_antiparticles(2212) == 0);
       if ((not is_single_photon_topology) || (not no_protons))
         return cosTh;
@@ -964,6 +976,55 @@ namespace vars::gOre
       return cat;
     }
   REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, mc_category, mc_category);
+
+  /**
+   * @brief categorize for MC Truth (CC Delta analysis)
+   * @details CC equivalents of mc_category, treating CC ∆->μNγ as signal.
+   * 0: CC ∆->μNγ  (CC, resnum==0, 1γ+1μ+nucleons only)
+   * 1: Other CC 1γ (CC, single photon + muon, not delta res)
+   * 2: CC 1μπ+-    (CC, has charged pion)
+   * 3: Other CC
+   * 4: CC 1μπ0     (CC, has π0, not delta res)
+   * 5: CC ∆->μπ0  (CC, resnum==0, has π0)
+   * 6: NC
+   * 7: Non-neutrino
+   **/
+  template <class T>
+    double mc_category_CC(const T& obj, std::vector<double> params = {GORE_MIN_GORE_ENERGY, GORE_MIN_MUON_ENERGY, GORE_MIN_PROTON_ENERGY, GORE_MIN_PION_ENERGY,
+                                                                      GORE_FID_THRESH_X_POS, GORE_FID_THRESH_X_NEG, GORE_FID_THRESH_Y_POS, GORE_FID_THRESH_Y_NEG, GORE_FID_THRESH_Z_POS, GORE_FID_THRESH_Z_NEG})
+    {
+      double cat(7);
+      bool isnc = obj.isnc;
+      caf::genie_interaction_mode_ genie_mode = obj.genie_mode;
+      caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
+      int resnum = obj.resnum;
+      // post-FSI primary particles
+      core::gOre::mc_topology topology(obj.prim, params);
+      // is CC ∆ res
+      bool is_cc_delta_res = (!isnc) && (resnum == 0);
+      // CC single photon topology: 1γ + 1μ + nucleons only
+      bool is_cc_single_photon_topology = topology.single_photon()
+        && topology.only_photons_nucleons_and_muons()
+        && (topology.count_with_antiparticles(13) == 1);
+      // is a neutrino interaction
+      bool is_nu = obj.index != -1;
+      if (is_cc_delta_res && is_cc_single_photon_topology)
+        cat = 0;
+      else if (!isnc && is_cc_single_photon_topology)
+        cat = 1;
+      else if (!isnc && topology.has_pi_pm())
+        cat = 2;
+      else if (is_cc_delta_res && topology.has_pi0())
+        cat = 5;
+      else if (!isnc && topology.has_pi0())
+        cat = 4;
+      else if (!isnc)
+        cat = 3;
+      else if (isnc)
+        cat = 6;
+      return cat;
+    }
+  REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, mc_category_CC, mc_category_CC);
 } //end vars::gOre namespace
 
 #endif
