@@ -320,12 +320,12 @@ namespace core::gOre
           }
         return is_it;
       }
-      /** @brief does the topology contain only photons, nucleons, and muons? **/
+      /** @brief does the topology contain only photons, nucleons, and muons (or anti-muons)? **/
       bool only_photons_nucleons_and_muons() const
       {
         bool is_it = true;
         for (auto const& [pdg, particles] : particles_by_pdg)
-          if (pdg != 22 && pdg != 2112 && pdg != 2212 && pdg != 13)
+          if (pdg != 22 && pdg != 2112 && pdg != 2212 && std::abs(pdg) != 13)
           {
             is_it = false;
             break;
