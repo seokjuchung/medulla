@@ -137,9 +137,10 @@ cuts = [
 [[sample]]
 name = "simulation"
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # 5e18 old
 # path = "/pnfs/sbnd/scratch/users/mueller/MCP2025B/gen1_updated_training/hadd_output2/*.flat.root" # 5e18 new
+path = "/pnfs/sbnd/scratch/users/mueller/test_gen2/flatcaf/*.flat.caf.root"
 
 ismc = true
 disable = false
@@ -192,6 +193,7 @@ branch = [
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
@@ -341,6 +343,7 @@ branch = [
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
@@ -494,6 +497,7 @@ branch = [
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
@@ -646,6 +650,7 @@ branch = [
   { name = "flash_time",     type = "reco" },
   { name = "flash_total_pe", type = "reco" },
   { name = "pion_mass",      type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
   # Both
   { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
   { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
