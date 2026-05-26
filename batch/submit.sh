@@ -63,7 +63,7 @@ ups active
 # Build medulla
 git clone https://github.com/seokjuchung/medulla.git
 cd medulla
-git checkout feature/schung_NCDelta
+git checkout feature/schung_CCDelta
 mkdir build && cd build
 export CC=$(which gcc)
 export CXX=$(which g++)
