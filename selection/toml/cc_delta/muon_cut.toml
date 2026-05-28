@@ -1,0 +1,182 @@
+[parameters]
+gOre_threshold = 25 # MeV
+muon_threshold = 143.425 # MeV
+pion_threshold = 25 # MeV
+proton_threshold = 50 # MeV
+fiducial_xdist_pos = 20 # cm
+fiducial_xdist_neg = 20 # cm
+fiducial_ydist_pos = 20 # cm
+fiducial_ydist_neg = 20 # cm
+fiducial_zdist_pos = 50 # cm
+fiducial_zdist_neg = 10 # cm
+
+[general]
+output = "/exp/sbnd/data/users/sc5303/NCDelta/ccDelta_single"
+primfn = "lax_primary_classification"
+fsthresh = [
+  "@gOre_threshold",
+  "@muon_threshold",
+  "@pion_threshold",
+  "@proton_threshold",
+]
+pidfn = "gOre_pid"
+
+
+[[sample]]
+name = "simulation"
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # gen1 1e20
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # gen1 5e18
+# path = "/pnfs/sbnd/scratch/users/mueller/test_gen2/flatcaf/*.flat.caf.root" # gen2 test
+
+ismc = true
+disable = false
+
+
+[[tree]] # signal (CC ∆->muNγ) 1mu1g0p
+name = "signal_1mu1g0p"
+sim_only = true
+mode = "true"
+add_systematics = true
+cut = [
+    { name = "fiducial_cut",                type = "true"                                       },
+    { name = "containment_cut",             type = "true"                                       },
+    { name = "neutrino2026_veto",           type = "true"                                       },
+    { name = "single_photon",               type = "true", parameters = [ "@gOre_threshold" ]   },
+    { name = "no_electrons",                type = "true", parameters = [ "@gOre_threshold" ]   },
+    { name = "single_muon",                 type = "true", parameters = [ "@muon_threshold" ]   },
+    { name = "no_charged_pions",            type = "true", parameters = [ "@pion_threshold" ]   },
+    { name = "no_protons",                  type = "true", parameters = [ "@proton_threshold" ] },
+    { name = "has_cc_delta_ng_interaction", type = "event", decrements_exposure = false         },
+]
+branch = [
+  # MC Truth
+  { name = "cc",               type = "mctruth" },
+  { name = "pdg",              type = "mctruth" },
+  { name = "interaction_mode", type = "mctruth" },
+  { name = "interaction_type", type = "mctruth" },
+  { name = "neutrino_energy",  type = "mctruth" },
+  { name = "baryon_res_code",  type = "mctruth" },
+  { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+
+  { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "neutron_cosTh", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                              "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "mc_category_CC",   type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  # True
+  { name = "neutrino_id",   type = "true" },
+  # Reco_Cuts
+  { name = "fiducial",       type = "reco" },
+  { name = "containment",    type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
+  { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
+  { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
+  { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
+  { name = "no_protons", type = "reco", parameters = [ "@proton_threshold" ] },
+  { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] },
+  # Reco
+  { name = "flash_total_pe", type = "reco" },
+  { name = "pion_mass",      type = "reco" },
+  # Both
+  { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
+  { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
+  { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
+  { name = "gOre_gap",          type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
+  { name = "vertex_x",          type = "both" },
+  { name = "vertex_y",          type = "both" },
+  { name = "vertex_z",          type = "both" },
+  { name = "delta_mass_P",      type = "both" },
+  # Leading proton
+  { name = "ancestor",           type = "true_particle", selector = "leading_primary_proton" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_primary_proton" },
+  { name = "proton_softmax",     type = "reco_particle", selector = "leading_primary_proton" },
+  { name = "ke",                 type = "both_particle", selector = "leading_primary_proton" },
+  # Leading muon
+  { name = "ancestor",           type = "true_particle", selector = "leading_muon" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_muon" },
+  { name = "muon_softmax",       type = "reco_particle", selector = "leading_muon" },
+  { name = "ke",                 type = "both_particle", selector = "leading_muon" },
+] 
+
+[[tree]] # signal (CC ∆->muNγ) 1mu1gNp
+name = "signal_1mu1gNp"
+sim_only = true
+mode = "true"
+add_systematics = true
+cut = [
+    { name = "fiducial_cut",                type = "true"                                       },
+    { name = "containment_cut",             type = "true"                                       },
+    # { name = "neutrino2026_veto",           type = "true"                                       },
+    { name = "single_photon",               type = "true", parameters = [ "@gOre_threshold" ]   },
+    { name = "no_electrons",                type = "true", parameters = [ "@gOre_threshold" ]   },
+    { name = "single_muon",                 type = "true", parameters = [ "@muon_threshold" ]   },
+    { name = "no_charged_pions",            type = "true", parameters = [ "@pion_threshold" ]   },
+    { name = "nonzeroproton",               type = "true", parameters = [ "@proton_threshold" ] },
+    { name = "has_cc_delta_ng_interaction", type = "event", decrements_exposure = false         },
+]
+branch = [
+  # MC Truth
+  { name = "cc",               type = "mctruth" },
+  { name = "pdg",              type = "mctruth" },
+  { name = "interaction_mode", type = "mctruth" },
+  { name = "interaction_type", type = "mctruth" },
+  { name = "neutrino_energy",  type = "mctruth" },
+  { name = "baryon_res_code",  type = "mctruth" },
+  { name = "delta_mass_N_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "delta_mass_P_MC",  type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+
+  { name = "neutron_momentum", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "neutron_cosTh", type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                              "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "mc_category",      type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  { name = "mc_category_CC",   type = "mctruth", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold",
+                                                                "@fiducial_xdist_pos", "@fiducial_xdist_neg", "@fiducial_ydist_pos", "@fiducial_ydist_neg", "@fiducial_zdist_pos", "@fiducial_zdist_neg", ] },
+  # True
+  { name = "neutrino_id",   type = "true" },
+  # Reco_Cuts
+  { name = "fiducial",       type = "reco" },
+  { name = "containment",    type = "reco" },
+  { name = "neutrino2026_veto", type = "reco" },
+  { name = "single_gOre", type = "reco", parameters = [ "@gOre_threshold" ] },
+  { name = "single_muon", type = "reco", parameters = [ "@muon_threshold" ] },
+  { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold" ] },
+  { name = "no_protons", type = "reco", parameters = [ "@proton_threshold" ] },
+  { name = "Nproton_inclusive",   type = "reco", parameters = [ "@proton_threshold" ] },
+  # Reco
+  { name = "flash_total_pe", type = "reco" },
+  { name = "pion_mass",      type = "reco" },
+  # Both
+  { name = "n_primary_showers", type = "both", parameters = [ "@gOre_threshold" ] },
+  { name = "n_secondary_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
+  { name = "n_gOre_showers", type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
+  { name = "n_protons",         type = "both", parameters = [ "@proton_threshold" ] },
+  { name = "n_protons_inclusive",         type = "both", parameters = [ "@proton_threshold" ] },
+  { name = "gOre_gap",          type = "both", parameters = [ "@gOre_threshold", "@muon_threshold", "@proton_threshold", "@pion_threshold" ] },
+  { name = "vertex_x",          type = "both" },
+  { name = "vertex_y",          type = "both" },
+  { name = "vertex_z",          type = "both" },
+  { name = "delta_mass_P",      type = "both" },
+  # Leading proton
+  { name = "ancestor",           type = "true_particle", selector = "leading_primary_proton" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_primary_proton" },
+  { name = "proton_softmax",     type = "reco_particle", selector = "leading_primary_proton" },
+  { name = "ke",                 type = "both_particle", selector = "leading_primary_proton" },
+  # Leading muon
+  { name = "ancestor",           type = "true_particle", selector = "leading_muon" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_muon" },
+  { name = "muon_softmax",       type = "reco_particle", selector = "leading_muon" },
+  { name = "ke",                 type = "both_particle", selector = "leading_muon" },
+]

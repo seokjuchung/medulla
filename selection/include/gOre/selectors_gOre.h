@@ -173,6 +173,44 @@ namespace selectors::gOre
   REGISTER_SELECTOR(leading_primary_proton, leading_primary_proton);
 
   /**
+   * @brief What is the index of the subleading proton?
+   * @tparam T the type of interaction (true or reco).
+   * @param obj the interaction to operate on.
+   * @return size_t the index of the proton with the second highest kinetic energy
+   **/
+  template <class T>
+    size_t subleading_proton(const T & obj)
+    {
+      double leading_ke(0);
+      size_t leading_index(kNoMatch);
+      double subleading_ke(0);
+      size_t subleading_index(kNoMatch);
+      for(size_t i(0); i < obj.particles.size(); ++i)
+      {
+        const auto & p = obj.particles.at(i);
+        double energy(pvars::ke(p));
+        bool is_proton = (pvars::pid(p) == pvars::kProton);
+        if (is_proton)
+        {
+          if (energy > leading_ke)
+          {
+            subleading_ke = leading_ke;
+            subleading_index = leading_index;
+            leading_ke = energy;
+            leading_index = i;
+          } else if (energy > subleading_ke)
+          {
+            subleading_ke = energy;
+            subleading_index = i;
+          }
+        }
+      }
+      return subleading_index;
+    }
+  REGISTER_SELECTOR(subleading_proton, subleading_proton);
+
+
+  /**
    * @brief What is the index of the leading primary gOre?
    * @tparam T the type of interaction (true or reco).
    * @param obj the interaction to operate on.

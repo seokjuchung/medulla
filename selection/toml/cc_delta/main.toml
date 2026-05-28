@@ -1,6 +1,6 @@
 [parameters]
 gOre_threshold = 25 # MeV
-muon_threshold = 25 # MeV
+muon_threshold = 143.425 # MeV
 pion_threshold = 25 # MeV
 proton_threshold = 50 # MeV
 fiducial_xdist_pos = 20 # cm
@@ -12,6 +12,7 @@ fiducial_zdist_neg = 10 # cm
 
 [general]
 output = "/exp/sbnd/data/users/sc5303/NCDelta/ccDelta_single"
+primfn = "lax_primary_classification"
 fsthresh = [
   "@gOre_threshold",
   "@muon_threshold",
@@ -24,9 +25,9 @@ pidfn = "gOre_pid"
 [[sample]]
 name = "simulation"
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # 1e20
-# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # 5e18 old
-# path = "/pnfs/sbnd/scratch/users/mueller/test_gen2/flatcaf/*.flat.caf.root"
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # gen1 1e20
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # gen1 5e18
+# path = "/pnfs/sbnd/scratch/users/mueller/test_gen2/flatcaf/*.flat.caf.root" # gen2 test
 
 ismc = true
 disable = false
@@ -183,6 +184,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_y",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
+  # Subleading proton
+  { name = "ancestor",           type = "true_particle", selector = "subleading_proton" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "subleading_proton" },
+  { name = "proton_softmax",     type = "reco_particle", selector = "subleading_proton" },
+  { name = "ke",                 type = "both_particle", selector = "subleading_proton" },
+  { name = "dpT",                type = "both_particle", selector = "subleading_proton" },
+  { name = "p",                  type = "both_particle", selector = "subleading_proton" },
+  { name = "length",             type = "both_particle", selector = "subleading_proton" },
+  { name = "polar_angle",        type = "both_particle", selector = "subleading_proton" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "subleading_proton" },
+  { name = "iou",                type = "both_particle", selector = "subleading_proton" },
+  { name = "start_x",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_y",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_z",            type = "both_particle", selector = "subleading_proton" },
   # Leading muon
   { name = "ancestor",           type = "true_particle", selector = "leading_muon" },
   { name = "primary_softmax",    type = "reco_particle", selector = "leading_muon" },
@@ -197,6 +212,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_muon" },
   { name = "start_y",            type = "both_particle", selector = "leading_muon" },
   { name = "start_z",            type = "both_particle", selector = "leading_muon" },
+  # Leading pion
+  { name = "ancestor",           type = "true_particle", selector = "leading_pion" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_pion" },
+  { name = "pion_softmax",       type = "reco_particle", selector = "leading_pion" },
+  { name = "ke",                 type = "both_particle", selector = "leading_pion" },
+  { name = "dpT",                type = "both_particle", selector = "leading_pion" },
+  { name = "p",                  type = "both_particle", selector = "leading_pion" },
+  { name = "length",             type = "both_particle", selector = "leading_pion" },
+  { name = "polar_angle",        type = "both_particle", selector = "leading_pion" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "leading_pion" },
+  { name = "iou",                type = "both_particle", selector = "leading_pion" },
+  { name = "start_x",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_y",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_z",            type = "both_particle", selector = "leading_pion" },
 ] 
 
 [[tree]] # selection (1mu1γNp) 
@@ -349,6 +378,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_y",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
+  # Subleading proton
+  { name = "ancestor",           type = "true_particle", selector = "subleading_proton" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "subleading_proton" },
+  { name = "proton_softmax",     type = "reco_particle", selector = "subleading_proton" },
+  { name = "ke",                 type = "both_particle", selector = "subleading_proton" },
+  { name = "dpT",                type = "both_particle", selector = "subleading_proton" },
+  { name = "p",                  type = "both_particle", selector = "subleading_proton" },
+  { name = "length",             type = "both_particle", selector = "subleading_proton" },
+  { name = "polar_angle",        type = "both_particle", selector = "subleading_proton" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "subleading_proton" },
+  { name = "iou",                type = "both_particle", selector = "subleading_proton" },
+  { name = "start_x",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_y",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_z",            type = "both_particle", selector = "subleading_proton" },
   # Leading muon
   { name = "ancestor",           type = "true_particle", selector = "leading_muon" },
   { name = "primary_softmax",    type = "reco_particle", selector = "leading_muon" },
@@ -363,6 +406,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_muon" },
   { name = "start_y",            type = "both_particle", selector = "leading_muon" },
   { name = "start_z",            type = "both_particle", selector = "leading_muon" },
+  # Leading pion
+  { name = "ancestor",           type = "true_particle", selector = "leading_pion" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_pion" },
+  { name = "pion_softmax",       type = "reco_particle", selector = "leading_pion" },
+  { name = "ke",                 type = "both_particle", selector = "leading_pion" },
+  { name = "dpT",                type = "both_particle", selector = "leading_pion" },
+  { name = "p",                  type = "both_particle", selector = "leading_pion" },
+  { name = "length",             type = "both_particle", selector = "leading_pion" },
+  { name = "polar_angle",        type = "both_particle", selector = "leading_pion" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "leading_pion" },
+  { name = "iou",                type = "both_particle", selector = "leading_pion" },
+  { name = "start_x",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_y",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_z",            type = "both_particle", selector = "leading_pion" },
 ] 
 
 
@@ -518,6 +575,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_y",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
+  # Subleading proton
+  { name = "ancestor",           type = "true_particle", selector = "subleading_proton" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "subleading_proton" },
+  { name = "proton_softmax",     type = "reco_particle", selector = "subleading_proton" },
+  { name = "ke",                 type = "both_particle", selector = "subleading_proton" },
+  { name = "dpT",                type = "both_particle", selector = "subleading_proton" },
+  { name = "p",                  type = "both_particle", selector = "subleading_proton" },
+  { name = "length",             type = "both_particle", selector = "subleading_proton" },
+  { name = "polar_angle",        type = "both_particle", selector = "subleading_proton" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "subleading_proton" },
+  { name = "iou",                type = "both_particle", selector = "subleading_proton" },
+  { name = "start_x",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_y",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_z",            type = "both_particle", selector = "subleading_proton" },
   # Leading muon
   { name = "ancestor",           type = "true_particle", selector = "leading_muon" },
   { name = "primary_softmax",    type = "reco_particle", selector = "leading_muon" },
@@ -532,6 +603,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_muon" },
   { name = "start_y",            type = "both_particle", selector = "leading_muon" },
   { name = "start_z",            type = "both_particle", selector = "leading_muon" },
+  # Leading pion
+  { name = "ancestor",           type = "true_particle", selector = "leading_pion" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_pion" },
+  { name = "pion_softmax",       type = "reco_particle", selector = "leading_pion" },
+  { name = "ke",                 type = "both_particle", selector = "leading_pion" },
+  { name = "dpT",                type = "both_particle", selector = "leading_pion" },
+  { name = "p",                  type = "both_particle", selector = "leading_pion" },
+  { name = "length",             type = "both_particle", selector = "leading_pion" },
+  { name = "polar_angle",        type = "both_particle", selector = "leading_pion" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "leading_pion" },
+  { name = "iou",                type = "both_particle", selector = "leading_pion" },
+  { name = "start_x",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_y",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_z",            type = "both_particle", selector = "leading_pion" },
 ] 
 
 [[tree]] # signal (CC ∆->muNγ) 1mu1gNp
@@ -686,6 +771,20 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_y",            type = "both_particle", selector = "leading_primary_proton" },
   { name = "start_z",            type = "both_particle", selector = "leading_primary_proton" },
+  # Subleading proton
+  { name = "ancestor",           type = "true_particle", selector = "subleading_proton" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "subleading_proton" },
+  { name = "proton_softmax",     type = "reco_particle", selector = "subleading_proton" },
+  { name = "ke",                 type = "both_particle", selector = "subleading_proton" },
+  { name = "dpT",                type = "both_particle", selector = "subleading_proton" },
+  { name = "p",                  type = "both_particle", selector = "subleading_proton" },
+  { name = "length",             type = "both_particle", selector = "subleading_proton" },
+  { name = "polar_angle",        type = "both_particle", selector = "subleading_proton" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "subleading_proton" },
+  { name = "iou",                type = "both_particle", selector = "subleading_proton" },
+  { name = "start_x",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_y",            type = "both_particle", selector = "subleading_proton" },
+  { name = "start_z",            type = "both_particle", selector = "subleading_proton" },
   # Leading muon
   { name = "ancestor",           type = "true_particle", selector = "leading_muon" },
   { name = "primary_softmax",    type = "reco_particle", selector = "leading_muon" },
@@ -700,4 +799,18 @@ branch = [
   { name = "start_x",            type = "both_particle", selector = "leading_muon" },
   { name = "start_y",            type = "both_particle", selector = "leading_muon" },
   { name = "start_z",            type = "both_particle", selector = "leading_muon" },
+  # Leading pion
+  { name = "ancestor",           type = "true_particle", selector = "leading_pion" },
+  { name = "primary_softmax",    type = "reco_particle", selector = "leading_pion" },
+  { name = "pion_softmax",       type = "reco_particle", selector = "leading_pion" },
+  { name = "ke",                 type = "both_particle", selector = "leading_pion" },
+  { name = "dpT",                type = "both_particle", selector = "leading_pion" },
+  { name = "p",                  type = "both_particle", selector = "leading_pion" },
+  { name = "length",             type = "both_particle", selector = "leading_pion" },
+  { name = "polar_angle",        type = "both_particle", selector = "leading_pion" },
+  { name = "azimuthal_angle",    type = "both_particle", selector = "leading_pion" },
+  { name = "iou",                type = "both_particle", selector = "leading_pion" },
+  { name = "start_x",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_y",            type = "both_particle", selector = "leading_pion" },
+  { name = "start_z",            type = "both_particle", selector = "leading_pion" },
 ] 
