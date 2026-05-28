@@ -11,7 +11,7 @@ fiducial_zdist_pos = 50 # cm
 fiducial_zdist_neg = 10 # cm
 
 [general]
-output = "/exp/sbnd/data/users/sc5303/NCDelta/ccDelta_single"
+output = "/exp/sbnd/data/users/sc5303/CCDelta/data/ccDelta_single"
 primfn = "lax_primary_classification"
 fsthresh = [
   "@gOre_threshold",
@@ -24,8 +24,8 @@ pidfn = "gOre_pid"
 
 [[sample]]
 name = "simulation"
-# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
-path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # gen1 1e20
+path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input001-reweighted.flat.caf.root" # Single file for testing
+# path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc1e20/input*-reweighted.flat.caf.root" # gen1 1e20
 # path = "/pnfs/sbnd/persistent/users/mueller/MCP2025B/simulation/mc5e18/input*-reweighted.flat.caf.root" # gen1 5e18
 # path = "/pnfs/sbnd/scratch/users/mueller/test_gen2/flatcaf/*.flat.caf.root" # gen2 test
 
