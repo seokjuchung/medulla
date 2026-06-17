@@ -33,7 +33,7 @@ namespace ecuts::gOre
       for (auto const& interaction : sr.mc.nu)
       {
         bool isnc = interaction.isnc;
-        bool delta_res = (interaction.resnum == 0);
+        bool delta_res = ((interaction.resnum == 0) || (interaction.resnum == 6) || (interaction.resnum == 7) || (interaction.resnum == 9) || (interaction.resnum == 12) || (interaction.resnum == 13) || (interaction.resnum == 14) || (interaction.resnum == 15));
         core::gOre::mc_topology topology(interaction.prim, params);
         bool single_photon = topology.single_photon() && topology.only_photons_and_nucleons();
         if (isnc && delta_res && single_photon)

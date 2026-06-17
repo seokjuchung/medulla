@@ -666,7 +666,7 @@ namespace vars::gOre
       caf::genie_interaction_type_ genie_inttype = obj.genie_inttype;
       int resnum = obj.resnum;
       // is NC ∆ res
-      bool is_nc_delta_res = isnc && (resnum == 0);
+      bool is_nc_delta_res = isnc && (resnum == 0 || resnum == 6 || resnum == 7 || resnum == 9 || resnum == 12 || resnum == 13 || resnum == 14 || resnum == 15);
       if (not is_nc_delta_res)
         return mass;
       // post-FSI primary particles
@@ -940,7 +940,7 @@ namespace vars::gOre
       // post-FSI primary particles
       core::gOre::mc_topology topology(obj.prim, params);
       // is NC ∆ res
-      bool is_nc_delta_res = isnc && (resnum == 0);
+      bool is_nc_delta_res = isnc && ((resnum == 0) || (resnum == 6) || (resnum == 7) || (resnum == 9) || (resnum == 12) || (resnum == 13) || (resnum == 14) || (resnum == 15));
       // single photon topology (1γ and maybe some nucleons)
       bool is_single_photon_topology = topology.single_photon() && topology.only_photons_and_nucleons();
       // is a neutrino interaction
